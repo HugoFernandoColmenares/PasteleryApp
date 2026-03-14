@@ -1,0 +1,110 @@
+.cart-container {
+  padding: 3rem;
+  background: var(--surface-color);
+  border: 4px solid var(--accent-color);
+  box-shadow: var(--shadow-md);
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+h2 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: var(--accent-color);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--accent-color);
+  gap: 2rem;
+}
+
+.cart-item:last-of-type {
+  border-bottom: none;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.item-info img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 4px solid var(--accent-color);
+  box-shadow: 4px 4px 0px var(--accent-color);
+}
+
+.item-info h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.item-controls input {
+  width: 70px;
+  padding: 0.8rem;
+  border: 3px solid var(--accent-color);
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+}
+
+.item-controls button {
+  background: var(--error-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--accent-color);
+  transition: all 0.2s;
+}
+
+.item-controls button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--accent-color);
+}
+
+.cart-summary {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  background: var(--secondary-color);
+  border: 4px solid var(--accent-color);
+  box-shadow: 8px 8px 0px var(--accent-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.cart-summary h3 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cart-summary {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}

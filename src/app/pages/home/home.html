@@ -1,0 +1,22 @@
+<div class="recipe-list-container">
+  <div class="recipe-list-grid">
+    @for (recipe of recipes(); track recipe.id) {
+    <shared-card [recipe]="recipe" />
+    }
+  </div>
+</div>
+
+@if (recipe()) {
+  <div class="recipe-detail-container">
+    @if (recipe()?.imageUrl) {
+      <img [src]="recipe()?.imageUrl" [alt]="recipe()?.name">
+    }
+    <div class="recipe-details">
+      <h2>{{ recipe()?.name }}</h2>
+      <p>{{ recipe()?.description }}</p>
+      <p>Precio sugerido: {{ recipe()?.suggestedPrice | currency:'USD' }}</p>
+    </div>
+  </div>
+} @else if (!loading()) {
+  <p>Receta no encontrada.</p>
+}

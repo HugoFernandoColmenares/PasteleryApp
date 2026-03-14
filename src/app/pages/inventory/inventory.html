@@ -1,0 +1,98 @@
+<div class="inventory-container">
+  <header class="inventory-header">
+    <h1>Inventario</h1>
+    @if (!isFormVisible()) {
+    <button (click)="addItem()" class="primary-button">
+      <span>+</span> Añadir Item
+    </button>
+    } @else {
+    <button (click)="isFormVisible.set(false)" class="secondary-button">
+      Volver al Listado
+    </button>
+    }
+  </header>
+
+  <div class="inventory-view">
+    @if (!isFormVisible()) {
+    <div class="table-card">
+      @if (loading()) {
+      <div class="loading-state">Cargando inventario...</div>
+      } @else {
+      <div class="table-wrapper">
+        <table class="neobrutalist-table">
+          <thead>
+            <tr>
+              <th>Ingrediente</th>
+              <th>Cantidad</th>
+              <th>Unidad</th>
+              <th>Ubicación</th>
+              <th>Última Actualización</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of ingredients(); track item.id) {
+            <tr>
+              <td><strong>{{ item.ingredient?.name || item.ingredientId }}</strong></td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unit }}</td>
+              <td>{{ item.location || '---' }}</td>
+              <td>{{ item.lastUpdated | date:'short' }}</td>
+              <td class="actions">
+                <button (click)="editItem(item)" class="icon-btn edit">✏️</button>
+                <button (click)="deleteItem(item.id)" class="icon-btn delete">🗑️</button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="6" class="empty-msg">No hay items en el inventario.</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="form-wrapper">
+      <div class="modal-overlay" (click)="closeForm()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <header class="modal-header">
+            <h2>{{ editingItem() ? 'Editar Item' : 'Añadir Item' }}</h2>
+            <button class="close-button" (click)="closeForm()">&times;</button>
+          </header>
+
+          <form [formGroup]="inventoryForm" (ngSubmit)="saveItem()">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="ingredientId">ID de Ingrediente (Guid)</label>
+                <input id="ingredientId" formControlName="ingredientId" placeholder="Ej: 550e8400-e29b-41d4-a716-446655440000">
+              </div>
+
+              <div class="form-field">
+                <label for="quantity">Cantidad</label>
+                <input id="quantity" type="number" formControlName="quantity">
+              </div>
+
+              <div class="form-field">
+                <label for="unit">Unidad</label>
+                <input id="unit" formControlName="unit" placeholder="Ej: kg, g, l, ml">
+              </div>
+
+              <div class="form-field">
+                <label for="location">Ubicación</label>
+                <input id="location" formControlName="location" placeholder="Ej: Almacén A">
+              </div>
+            </div>
+
+            <footer class="modal-footer">
+              <button type="button" class="secondary-button" (click)="closeForm()">Cancelar</button>
+              <button type="submit" class="primary-button" [disabled]="inventoryForm.invalid">Guardar</button>
+            </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="modal-overlay" (click)="close.emit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>¡Añadido al carrito!</h2>
+        </div>
+        <div class="modal-body">
+            <p>Has añadido <strong>{{ recipe().name }}</strong> a tu pedido.</p>
+        </div>
+        <div class="modal-actions">
+            <button class="secondary-button" (click)="continueShopping()">Seguir comprando</button>
+            <button class="primary-button" (click)="goToCheckout()">Pagar ahora</button>
+        </div>
+    </div>
+</div>

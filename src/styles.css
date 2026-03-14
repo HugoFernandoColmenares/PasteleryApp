@@ -1,0 +1,147 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;500;700&display=swap');
+
+:root {
+  /* Color Palette - Inspired by a sweet pastry shop */
+  --primary-color: #D4A5A5; /* Muted rose pink */
+  --secondary-color: #FFF8E1; /* Creamy vanilla */
+  --accent-color: #6B4F4F; /* Rich chocolate brown */
+  --text-color: #4A3F3F; /* Dark coffee text */
+  --background-color: #FAF6F0; /* Light parchment */
+  --surface-color: #FFFFFF; /* Clean white plate */
+  --success-color: #A5D6A7; /* Mint green */
+  --error-color: #EF9A9A; /* Strawberry red */
+  --border-color: #E0E0E0;
+  --shadow-color: rgba(107, 79, 79, 0.1);
+
+  /* Typography */
+  --font-primary: 'Quicksand', sans-serif;
+  --font-secondary: 'Playfair Display', serif;
+
+  /* UI Elements */
+  --border-radius: 0px;
+  --shadow-sm: 4px 4px 0px var(--accent-color);
+  --shadow-md: 8px 8px 0px var(--accent-color);
+  --shadow-lg: 12px 12px 0px var(--accent-color);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
+  color: var(--accent-color);
+  margin-top: 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Global button styles */
+.primary-button {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.primary-button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--accent-color);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.secondary-button {
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.secondary-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--accent-color);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+  border-left: 2px solid var(--accent-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--secondary-color);
+}
+
+/* Utility Classes */
+.hide-mobile {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block !important;
+  }
+
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+.text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }

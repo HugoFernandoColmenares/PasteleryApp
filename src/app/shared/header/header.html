@@ -1,0 +1,34 @@
+<header class="main-header">
+  <div class="header-left">
+    <button class="mobile-menu-btn hide-desktop" (click)="toggleMenu.emit()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="logo">
+      <a routerLink="/home/main">PastelApp</a>
+    </div>
+    <nav class="main-nav hide-mobile">
+      <a routerLink="/home/main">Inicio</a>
+      <a routerLink="/home/recipes">Recetas</a>
+      <a routerLink="/home/about">Acerca de nosotros</a>
+      @if (currentUser()) {
+      <a routerLink="/home/inventory">Inventario</a>
+      }
+    </nav>
+  </div>
+
+  <div class="header-right">
+    <div class="nav-actions">
+      <a routerLink="/home/cart" class="cart-link">
+        <span>Carrito</span>
+      </a>
+      @if (currentUser()) {
+      <a routerLink="/home/profile" class="hide-mobile">Perfil</a>
+      <a (click)="logout.emit()" class="auth-btn">Cerrar sesión</a>
+      } @else {
+      <a (click)="login.emit()" class="auth-btn">Login</a>
+      }
+    </div>
+  </div>
+</header>

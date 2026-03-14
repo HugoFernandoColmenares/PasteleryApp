@@ -1,0 +1,15 @@
+<div class="app-layout">
+    <app-header [currentUser]="currentUser()" (login)="login()" (logout)="logout()" (toggleMenu)="toggleSidebar()" />
+
+    <div class="layout-body">
+        @if (isSidebarOpen()) {
+        <div class="overlay" (click)="closeSidebar()"></div>
+        }
+        <app-sidebar [class.active]="isSidebarOpen()"></app-sidebar>
+        <main class="main-content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+
+    <app-footer></app-footer>
+</div>

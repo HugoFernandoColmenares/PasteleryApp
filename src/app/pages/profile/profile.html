@@ -1,0 +1,7 @@
+<div class="profile-container">
+  <h2>Perfil de Usuario</h2>
+  @if (user()) {
+  <p><strong>Nombre:</strong> {{ user()?.name }}</p>
+  <p><strong>Correo Electrónico:</strong> {{ user()?.email }}</p>
+  }
+</div>

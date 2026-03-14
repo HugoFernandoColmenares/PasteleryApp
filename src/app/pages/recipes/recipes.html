@@ -1,0 +1,22 @@
+<div class="recipes-container">
+    <h1>Recetas de la Casa</h1>
+    <p class="subtitle">Aprende los secretos de nuestros maestros panaderos.</p>
+
+    @if (loading()) {
+        <p>Cargando recetas...</p>
+    } @else {
+        <div class="recipes-grid">
+            @for (recipe of recipes(); track recipe.id) {
+            <div class="recipe-card">
+                <h3>{{ recipe.name }}</h3>
+                <div class="recipe-meta">
+                    <p>{{ recipe.description }}</p>
+                    <span>Costo total: {{ recipe.totalCost | currency:'USD' }}</span>
+                    <span>Precio sugerido: {{ recipe.suggestedPrice | currency:'USD' }}</span>
+                </div>
+                <button class="secondary-button" [routerLink]="['/home', { id: recipe.id }]">Ver Receta Completa</button>
+            </div>
+            }
+        </div>
+    }
+</div>
