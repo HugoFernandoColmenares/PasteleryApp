@@ -37,6 +37,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/recipes/recipes').then((m) => m.Recipes),
       },
       {
+        path: 'news',
+        loadComponent: () => import('./pages/news/news').then((m) => m.News),
+      },
+      {
         path: 'payment',
         loadComponent: () => import('./pages/payment/payment').then((m) => m.Payment),
         canActivate: [authGuard],

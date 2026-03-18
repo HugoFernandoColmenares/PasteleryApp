@@ -114,8 +114,7 @@ export const INVENTORY_DATA: InventoryItemDto[] = [
 ];
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
-    { label: 'Especiales', icon: '✨', path: '/home/main' },
-    { label: 'De temporada', icon: '🍂', path: '/home/main' },
-    { label: 'Personalizados', icon: '🎨', path: '/home/main' },
-    { label: 'Recetas de la Casa', icon: '📖', path: '/home/recipes' }
+    { label: 'Nuestros Productos', icon: '🧁', path: '/home/main' },
+    { label: 'Foro de Noticias', icon: '📰', path: '/home/news' },
+    { label: 'Sobre Nosotros', icon: '👩‍🍳', path: '/home/about' }
 ];
