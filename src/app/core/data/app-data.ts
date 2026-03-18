@@ -1,5 +1,5 @@
 import { ListRecipeDto } from "@core/interfaces/recipe.interface";
-import { InventoryItemDto } from "@core/interfaces/inventory-item.interface";
+import { InventoryItemDto, IngredientDto } from "@core/interfaces/inventory-item.interface";
 import { NewsArticle } from "@core/interfaces/news-article.interface";
 
 export interface SidebarItem {
@@ -7,6 +7,17 @@ export interface SidebarItem {
     icon: string;
     path: string;
 }
+
+export const INGREDIENTS_DATA: IngredientDto[] = [
+    { id: 'ing-001', name: 'Harina de Trigo', category: 'Harinas', description: 'Harina de trigo refinada para pastelería.' },
+    { id: 'ing-002', name: 'Azúcar Blanca', category: 'Azúcares', description: 'Azúcar refinada estándar.' },
+    { id: 'ing-003', name: 'Mantequilla', category: 'Lácteos', description: 'Mantequilla sin sal de alta calidad.' },
+    { id: 'ing-004', name: 'Chocolate 70%', category: 'Chocolates', description: 'Chocolate negro con 70% de cacao.' },
+    { id: 'ing-005', name: 'Huevos', category: 'Lácteos', description: 'Huevos frescos de granja.' },
+    { id: 'ing-006', name: 'Levadura Fresca', category: 'Levaduras', description: 'Levadura natural prensada.' },
+    { id: 'ing-007', name: 'Leche Entera', category: 'Lácteos', description: 'Leche de vaca fresca.' },
+    { id: 'ing-008', name: 'Sal Marina', category: 'Especias', description: 'Sal natural fina.' }
+];
 
 export const NEWS_DATA: NewsArticle[] = [
     {

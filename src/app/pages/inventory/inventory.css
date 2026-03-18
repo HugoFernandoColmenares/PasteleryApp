@@ -5,6 +5,7 @@
 .inventory-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
 }
 
 .inventory-header {
@@ -56,24 +57,6 @@ h1 {
   background: var(--background-color);
 }
 
-.price {
-  font-family: monospace;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.status-badge {
-  padding: 0.4rem 0.8rem;
-  border: 2px solid var(--accent-color);
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-.status-badge[data-status="agotado"] { background: var(--error-color); }
-.status-badge[data-status="abierto"] { background: var(--primary-color); }
-.status-badge[data-status="sin empezar"] { background: var(--success-color); }
-
 .icon-btn {
   background: none;
   border: 2px solid transparent;
@@ -95,70 +78,133 @@ h1 {
   font-size: 1.2rem;
 }
 
-.form-wrapper {
-  max-width: 800px;
-  margin: 0 auto;
-  animation: slideIn 0.3s ease-out;
+/* Modal and Form */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.modal-content {
+    background: var(--background-color);
+    border: 4px solid var(--accent-color);
+    box-shadow: 16px 16px 0px var(--accent-color);
+    width: 90%;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-field label {
+    font-weight: 700;
+}
+
+.form-field input {
+    padding: 0.75rem;
+    border: 2px solid var(--accent-color);
+    font-family: var(--font-primary);
+}
+
+.modal-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Combobox Styles */
+.combobox-container {
+    position: relative;
+}
+
+.combobox-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.combobox-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--surface-color);
+    border: 3px solid var(--accent-color);
+    box-shadow: 8px 8px 0px var(--accent-color);
+    z-index: 1100;
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.combobox-dropdown li {
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.combobox-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.combobox-dropdown li:hover {
+    background-color: var(--secondary-color);
+}
+
+.combobox-dropdown li .category {
+    font-size: 0.8rem;
+    background-color: var(--primary-color);
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--accent-color);
+}
+
+.error-msg {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 @media (max-width: 768px) {
   h1 { font-size: 2.5rem; }
   .inventory-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-}
-
-.form-container {
-  background-color: var(--surface-color);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  max-width: 500px;
-  margin: 2rem auto;
-}
-
-h2 {
-  color: var(--accent-color);
-  font-family: var(--font-secondary);
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.form-field {
-  margin-bottom: 1.5rem;
-}
-
-.form-field label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--text-color);
-}
-
-.form-field input,
-.form-field select {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  font-family: var(--font-primary);
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-field input:focus,
-.form-field select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(212, 165, 165, 0.3);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
 }

@@ -1,0 +1,89 @@
+<div class="ingredient-container">
+  <header class="ingredient-header">
+    <h1>Maestro de Ingredientes</h1>
+    @if (!isFormVisible()) {
+    <button (click)="addIngredient()" class="primary-button">
+      <span>+</span> Nuevo Ingrediente
+    </button>
+    } @else {
+    <button (click)="closeForm()" class="secondary-button">
+      Volver al Listado
+    </button>
+    }
+  </header>
+
+  <div class="ingredient-view">
+    @if (!isFormVisible()) {
+    <div class="table-card">
+      @if (loading()) {
+      <div class="loading-state">Cargando ingredientes...</div>
+      } @else {
+      <div class="table-wrapper">
+        <table class="neobrutalist-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of ingredients(); track item.id) {
+            <tr>
+              <td><strong>{{ item.name }}</strong></td>
+              <td>{{ item.category || '---' }}</td>
+              <td>{{ item.description || '---' }}</td>
+              <td class="actions">
+                <button (click)="editIngredient(item)" class="icon-btn edit">✏️</button>
+                <button (click)="deleteIngredient(item.id)" class="icon-btn delete">🗑️</button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="4" class="empty-msg">No hay ingredientes registrados.</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="form-wrapper">
+      <div class="modal-overlay" (click)="closeForm()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <header class="modal-header">
+            <h2>{{ editingIngredient() ? 'Editar Ingrediente' : 'Nuevo Ingrediente' }}</h2>
+            <button class="close-button" (click)="closeForm()">&times;</button>
+          </header>
+
+          <form [formGroup]="ingredientForm" (ngSubmit)="saveIngredient()">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="name">Nombre del Ingrediente</label>
+                <input id="name" formControlName="name" placeholder="Ej: Harina Leudante">
+              </div>
+
+              <div class="form-field">
+                <label for="category">Categoría</label>
+                <input id="category" formControlName="category" placeholder="Ej: Harinas, Lácteos...">
+              </div>
+
+              <div class="form-field full-width">
+                <label for="description">Descripción</label>
+                <textarea id="description" formControlName="description" rows="3"></textarea>
+              </div>
+            </div>
+
+            <footer class="modal-footer">
+              <button type="button" class="secondary-button" (click)="closeForm()">Cancelar</button>
+              <button type="submit" class="primary-button" [disabled]="ingredientForm.invalid">Guardar</button>
+            </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,9 +1,9 @@
 <div class="inventory-container">
   <header class="inventory-header">
-    <h1>Inventario</h1>
+    <h1>Inventario de Stock</h1>
     @if (!isFormVisible()) {
     <button (click)="addItem()" class="primary-button">
-      <span>+</span> Añadir Item
+      <span>+</span> Añadir Stock
     </button>
     } @else {
     <button (click)="isFormVisible.set(false)" class="secondary-button">
@@ -33,7 +33,7 @@
           <tbody>
             @for (item of ingredients(); track item.id) {
             <tr>
-              <td><strong>{{ item.ingredient?.name || item.ingredientId }}</strong></td>
+              <td><strong>{{ getIngredientName(item.ingredientId) }}</strong></td>
               <td>{{ item.quantity }}</td>
               <td>{{ item.unit }}</td>
               <td>{{ item.location || '---' }}</td>
@@ -58,15 +58,40 @@
       <div class="modal-overlay" (click)="closeForm()">
         <div class="modal-content" (click)="$event.stopPropagation()">
           <header class="modal-header">
-            <h2>{{ editingItem() ? 'Editar Item' : 'Añadir Item' }}</h2>
+            <h2>{{ editingItem() ? 'Editar Stock' : 'Añadir Stock' }}</h2>
             <button class="close-button" (click)="closeForm()">&times;</button>
           </header>
 
           <form [formGroup]="inventoryForm" (ngSubmit)="saveItem()">
             <div class="form-grid">
-              <div class="form-field">
-                <label for="ingredientId">ID de Ingrediente (Guid)</label>
-                <input id="ingredientId" formControlName="ingredientId" placeholder="Ej: 550e8400-e29b-41d4-a716-446655440000">
+              <!-- Searchable Combobox -->
+              <div class="form-field full-width combobox-container">
+                <label for="ingredientSearch">Buscar Ingrediente</label>
+                <div class="combobox-wrapper">
+                  <input 
+                    id="ingredientSearch" 
+                    type="text" 
+                    [value]="searchTerm()"
+                    (input)="searchTerm.set($any($event.target).value); showDropdown.set(true)"
+                    (focus)="showDropdown.set(true)"
+                    placeholder="Escribe para buscar..."
+                    autocomplete="off"
+                  >
+                  
+                  @if (showDropdown() && filteredIngredients().length > 0) {
+                    <ul class="combobox-dropdown">
+                      @for (ing of filteredIngredients(); track ing.id) {
+                        <li (click)="selectIngredient(ing)">
+                          <strong>{{ ing.name }}</strong>
+                          <span class="category">{{ ing.category }}</span>
+                        </li>
+                      }
+                    </ul>
+                  }
+                </div>
+                @if (inventoryForm.get('ingredientId')?.invalid && inventoryForm.get('ingredientId')?.touched) {
+                  <span class="error-msg">Debes seleccionar un ingrediente de la lista.</span>
+                }
               </div>
 
               <div class="form-field">
@@ -79,9 +104,9 @@
                 <input id="unit" formControlName="unit" placeholder="Ej: kg, g, l, ml">
               </div>
 
-              <div class="form-field">
+              <div class="form-field full-width">
                 <label for="location">Ubicación</label>
-                <input id="location" formControlName="location" placeholder="Ej: Almacén A">
+                <input id="location" formControlName="location" placeholder="Ej: Almacén A, Cámara Frigorífica">
               </div>
             </div>
 
