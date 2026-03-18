@@ -1,16 +1,35 @@
-<div class="card-content">
-  <a [routerLink]="['/home/main', { id: recipe().id }]">
+<div class="card-container">
+  <div class="card-image-wrapper">
     @if (recipe().imageUrl) {
-      <img [ngSrc]="recipe().imageUrl!" [alt]="recipe().name" width="1024" height="1024" priority="true">
+      <img 
+        [ngSrc]="recipe().imageUrl!" 
+        [alt]="'Imagen de ' + recipe().name" 
+        fill 
+        priority="true"
+        class="card-img"
+      >
     }
-    <h3>{{ recipe().name }}</h3>
-  </a>
-  <div class="card-footer">
-    <p>{{ recipe().suggestedPrice | currency:'USD' }}</p>
-    <button (click)="addToCart()">Añadir al carrito</button>
+  </div>
+  
+  <div class="card-body">
+    <a [routerLink]="['/home/main', { id: recipe().id }]" class="card-link">
+      <h3 class="card-title">{{ recipe().name }}</h3>
+    </a>
+    
+    <div class="card-footer">
+      <span class="card-price" aria-label="Precio">{{ recipe().suggestedPrice | currency:'USD' }}</span>
+      <button 
+        (click)="addToCart()" 
+        class="add-to-cart-btn" 
+        type="button"
+        aria-label="Añadir al carrito"
+      >
+        Añadir
+      </button>
+    </div>
   </div>
 </div>
 
 @if (showModal()) {
-<shared-modal [recipe]="recipe()" (close)="closeModal()" />
+  <shared-modal [recipe]="recipe()" (close)="closeModal()" />
 }

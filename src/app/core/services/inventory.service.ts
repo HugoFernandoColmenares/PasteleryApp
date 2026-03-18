@@ -11,8 +11,8 @@ import { INVENTORY_DATA } from '../data/app-data';
 })
 export class InventoryService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5000/api/InventoryItem';
-  private ingredientApiUrl = 'http://localhost:5000/api/Ingredient';
+  private apiUrl = 'http://localhost:7229/api/InventoryItem';
+  private ingredientApiUrl = 'http://localhost:7229/api/Ingredient';
 
   private readonly _ingredients = signal<InventoryItemDto[]>([]);
   private readonly _loading = signal<boolean>(false);
@@ -35,15 +35,14 @@ export class InventoryService {
       this._ingredients.set(items);
     });
 
-    /* BACKEND INTEGRATION:
-    this.http.get<ApiResponse<InventoryItemDto[]>>(this.apiUrl)
-      .pipe(
-        map(response => response.data || []),
-        finalize(() => this._loading.set(false))
-      ).subscribe(items => {
-        this._ingredients.set(items);
-      });
-    */
+    // BACKEND INTEGRATION:
+    // this.http.get<ApiResponse<InventoryItemDto[]>>(this.apiUrl)
+    //   .pipe(
+    //     map(response => response.data || []),
+    //     finalize(() => this._loading.set(false))
+    //   ).subscribe(items => {
+    //     this._ingredients.set(items);
+    //   });
   }
 
   addIngredient(item: Partial<InventoryItemDto>): Observable<InventoryItemDto | null> {

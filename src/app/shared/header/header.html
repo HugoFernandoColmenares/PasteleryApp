@@ -1,34 +1,75 @@
 <header class="main-header">
-  <div class="header-left">
-    <button class="mobile-menu-btn hide-desktop" (click)="toggleMenu.emit()" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="logo">
-      <a routerLink="/home/main">PastelApp</a>
-    </div>
-    <nav class="main-nav hide-mobile">
-      <a routerLink="/home/main">Inicio</a>
-      <a routerLink="/home/recipes">Recetas</a>
-      <a routerLink="/home/about">Acerca de nosotros</a>
-      @if (currentUser()) {
-      <a routerLink="/home/inventory">Inventario</a>
-      }
-    </nav>
-  </div>
+  <div class="header-container">
+    <div class="header-left">
+      <!-- Botón de menú móvil: Visible solo en pantallas pequeñas. -->
+      <button 
+        class="mobile-menu-btn hide-desktop" 
+        (click)="toggleMenu.emit()" 
+        aria-label="Abrir menú de navegación"
+        type="button"
+      >
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
 
-  <div class="header-right">
-    <div class="nav-actions">
-      <a routerLink="/home/cart" class="cart-link">
-        <span>Carrito</span>
-      </a>
-      @if (currentUser()) {
-      <a routerLink="/home/profile" class="hide-mobile">Perfil</a>
-      <a (click)="logout.emit()" class="auth-btn">Cerrar sesión</a>
-      } @else {
-      <a (click)="login.emit()" class="auth-btn">Login</a>
-      }
+      <div class="logo">
+        <a routerLink="/home/main" aria-label="PastelApp - Ir al inicio">
+          <span class="logo-text">PastelApp</span>
+        </a>
+      </div>
+
+      <!-- Navegación principal: Oculta en móvil, se accede vía sidebar. -->
+      <nav class="main-nav hide-mobile" aria-label="Navegación principal">
+        <a 
+          routerLink="/home/main" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{ exact: true }"
+        >Inicio</a>
+        <a 
+          routerLink="/home/recipes" 
+          routerLinkActive="active"
+        >Recetas</a>
+        <a 
+          routerLink="/home/about" 
+          routerLinkActive="active"
+        >Nosotros</a>
+        @if (currentUser()) {
+          <a 
+            routerLink="/home/inventory" 
+            routerLinkActive="active"
+          >Inventario</a>
+        }
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="nav-actions">
+        <a 
+          routerLink="/home/cart" 
+          class="cart-link" 
+          aria-label="Ver carrito de compras"
+          routerLinkActive="active"
+        >
+          <span class="cart-icon" aria-hidden="true">🛒</span>
+          <span class="cart-text hide-mobile">Carrito</span>
+        </a>
+
+        @if (currentUser()) {
+          <a 
+            routerLink="/home/profile" 
+            class="profile-link" 
+            aria-label="Ir a mi perfil"
+            routerLinkActive="active"
+          >
+            <span class="profile-icon" aria-hidden="true">👤</span>
+            <span class="hide-mobile">Perfil</span>
+          </a>
+          <button (click)="logout.emit()" class="auth-btn logout" type="button">Salir</button>
+        } @else {
+          <button (click)="login.emit()" class="auth-btn login" type="button">Entrar</button>
+        }
+      </div>
     </div>
   </div>
 </header>
