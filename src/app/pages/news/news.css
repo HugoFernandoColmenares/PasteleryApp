@@ -89,3 +89,10 @@
 .read-more:hover {
     color: var(--primary-color);
 }
+
+.loading-state {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}

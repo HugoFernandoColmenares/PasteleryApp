@@ -4,17 +4,23 @@
         <p class="subtitle">Entérate de las últimas noticias, eventos y talleres de nuestra pastelería.</p>
     </header>
 
-    <div class="news-grid">
-        @for (item of news(); track item.id) {
-        <article class="news-card">
-            <div class="news-badge">{{ item.category }}</div>
-            <span class="news-date">{{ item.date }}</span>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.summary }}</p>
-            <div class="news-footer">
-                <button class="read-more">Leer Más</button>
-            </div>
-        </article>
-        }
-    </div>
+    @if (loading()) {
+        <div class="loading-state">Cargando noticias...</div>
+    } @else {
+        <div class="news-grid">
+            @for (item of news(); track item.id) {
+            <article class="news-card">
+                <div class="news-badge">{{ item.category }}</div>
+                <span class="news-date">{{ item.date }}</span>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.summary }}</p>
+                <div class="news-footer">
+                    <button class="read-more" [routerLink]="['/home/news', item.id]">Leer Más</button>
+                </div>
+            </article>
+            } @empty {
+                <p>No hay noticias disponibles en este momento.</p>
+            }
+        </div>
+    }
 </div>

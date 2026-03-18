@@ -1,11 +1,58 @@
 import { ListRecipeDto } from "@core/interfaces/recipe.interface";
 import { InventoryItemDto } from "@core/interfaces/inventory-item.interface";
+import { NewsArticle } from "@core/interfaces/news-article.interface";
 
 export interface SidebarItem {
     label: string;
     icon: string;
     path: string;
 }
+
+export const NEWS_DATA: NewsArticle[] = [
+    {
+        id: '660e8400-e29b-41d4-a716-446655440001',
+        title: '¡Nueva Apertura en el Centro!',
+        date: '15 Mar 2026',
+        category: 'Evento',
+        author: 'Ana Martínez',
+        summary: 'Estamos emocionados de anunciar nuestra nueva sucursal en el corazón de la ciudad.',
+        content: `Próximamente estaremos atendiendo a todos nuestros clientes en la Calle Mayor, con el mismo sabor artesanal de siempre.
+        
+        Nuestra nueva tienda contará con un espacio de degustación donde podrás probar nuestras últimas creaciones antes que nadie. Además, los primeros 50 clientes en la gran apertura recibirán un pack de bienvenida con nuestros famosos macarons.
+        
+        No te lo pierdas, ¡te esperamos!`
+    },
+    {
+        id: '660e8400-e29b-41d4-a716-446655440002',
+        title: 'Taller de Masa Madre: Nivel Básico',
+        date: '10 Mar 2026',
+        category: 'Taller',
+        author: 'Carlos Ruiz',
+        summary: 'Aprende los secretos de la fermentación natural con nuestro maestro panadero.',
+        content: `Inscríbete en nuestro próximo taller donde aprenderás a crear tu propia masa madre desde cero. 
+        
+        En este taller de 4 horas, cubriremos:
+        1. Selección de harinas
+        2. El proceso de fermentación paso a paso
+        3. Técnicas de amasado y formado
+        4. Horneado perfecto en casa
+        
+        Incluye todos los materiales y un tarro con masa madre de 50 años de antigüedad de nuestra familia.`
+    },
+    {
+        id: '660e8400-e29b-41d4-a716-446655440003',
+        title: 'Pastel de la Temporada: Otoño Dulce',
+        date: '05 Mar 2026',
+        category: 'Producto',
+        author: 'Elena Gómez',
+        summary: 'Llega nuestro especial de calabaza y especias para endulzar tus tardes.',
+        content: `Una combinación perfecta de texturas y sabores cálidos para esta época del año. 
+        
+        Nuestro equipo ha trabajado durante meses para perfeccionar esta receta que combina calabaza asada, canela de Ceilán, jengibre y una base de galleta crujiente de mantequilla. 
+        
+        Es el acompañamiento ideal para un café caliente en una tarde de lluvia.`
+    }
+];
 
 export const RECIPES_DATA: ListRecipeDto[] = [
     {

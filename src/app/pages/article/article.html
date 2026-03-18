@@ -1,0 +1,36 @@
+<div class="article-container">
+    @if (loading()) {
+        <div class="loading-state">Cargando artículo...</div>
+    } @else if (article()) {
+        <article class="article-content">
+            <header class="article-header">
+                <div class="article-meta">
+                    <span class="category-badge">{{ article()?.category }}</span>
+                    <span class="date">{{ article()?.date }}</span>
+                </div>
+                <h1>{{ article()?.title }}</h1>
+                <div class="author-info">
+                    Por: <strong>{{ article()?.author }}</strong>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p class="summary">{{ article()?.summary }}</p>
+                <div class="full-text">
+                    {{ article()?.content }}
+                </div>
+            </div>
+
+            <footer class="article-footer">
+                <button class="secondary-button" routerLink="/home/news">
+                    &larr; Volver al Foro
+                </button>
+            </footer>
+        </article>
+    } @else {
+        <div class="error-state">
+            <h2>Artículo no encontrado</h2>
+            <button class="primary-button" routerLink="/home/news">Volver a Noticias</button>
+        </div>
+    }
+</div>

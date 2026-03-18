@@ -41,6 +41,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/news/news').then((m) => m.News),
       },
       {
+        path: 'news/:id',
+        loadComponent: () => import('./pages/article/article').then((m) => m.Article),
+      },
+      {
         path: 'payment',
         loadComponent: () => import('./pages/payment/payment').then((m) => m.Payment),
         canActivate: [authGuard],
