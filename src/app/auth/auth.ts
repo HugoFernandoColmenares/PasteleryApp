@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
+import { AlertService } from '@core/services/alert.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,6 +14,7 @@ import { AuthService } from '@core/services/auth.service';
 export class Auth {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private alertService = inject(AlertService);
   private router = inject(Router);
 
   loginForm = this.fb.group({
@@ -24,9 +26,10 @@ export class Auth {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(response => {
         if (response.isSuccess) {
+          this.alertService.toast('¡Bienvenido de nuevo!');
           this.router.navigate(['/profile']);
         } else {
-          alert(response.message || 'Error al iniciar sesión');
+          this.alertService.error('Error de acceso', response.message || 'Credenciales incorrectas');
         }
       });
     }

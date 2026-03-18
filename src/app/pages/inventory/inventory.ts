@@ -1,8 +1,9 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InventoryItemDto } from '@core/interfaces/inventory-item.interface';
 import { InventoryService } from '@core/services/inventory.service';
+import { AlertService } from '@core/services/alert.service';
 
 @Component({
   selector: 'app-inventory',
@@ -12,6 +13,7 @@ import { InventoryService } from '@core/services/inventory.service';
 })
 export class Inventory implements OnInit {
   private readonly inventoryService = inject(InventoryService);
+  private readonly alertService = inject(AlertService);
   private readonly fb = inject(FormBuilder);
 
   public ingredients = this.inventoryService.ingredients;
@@ -76,20 +78,28 @@ export class Inventory implements OnInit {
       } as InventoryItemDto;
       this.inventoryService.updateIngredient(updatedItem).subscribe(() => {
         this.inventoryService.loadIngredients();
+        this.alertService.toast('Item actualizado correctamente');
         this.closeForm();
       });
     } else {
       this.inventoryService.addIngredient(itemData).subscribe(() => {
         this.inventoryService.loadIngredients();
+        this.alertService.toast('Nuevo item añadido');
         this.closeForm();
       });
     }
   }
 
-  deleteItem(id: string) {
-    if (confirm('¿Estás seguro de que quieres eliminar este item del inventario?')) {
+  async deleteItem(id: string) {
+    const confirmed = await this.alertService.confirm(
+      '¿Eliminar item?',
+      'Esta acción no se puede deshacer.'
+    );
+
+    if (confirmed) {
       this.inventoryService.deleteIngredient(id).subscribe(() => {
         this.inventoryService.loadIngredients();
+        this.alertService.toast('Item eliminado', 'info');
       });
     }
   }
