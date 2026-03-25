@@ -4,4 +4,14 @@ export interface ApiResponse<T> {
   errors: string[] | null;
   isSuccess: boolean;
   statusCode: number;
+  pagination?: Pagination;
+}
+
+export interface Pagination {
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  totalCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
 }

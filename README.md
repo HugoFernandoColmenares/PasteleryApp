@@ -1,53 +1,59 @@
-# PasteleriaApp - Sistema de Gestión de Panadería 🥐
+# PasteleriaApp - Bakery Management System 🥐
 
-Aplicación moderna para la gestión de inventario, recetas y ventas de una pastelería artesanal, construida con Angular e integrada con un backend .NET 8.
+A modern application for inventory management, recipes, and sales of an artisanal bakery, built with Angular and integrated with a .NET 8 backend.
 
-## 🚀 Características Recientes
+## 🚀 Recent Features
 
-- **Gestión de Ingredientes**: Nuevo módulo maestro para administrar la base de datos de ingredientes (Harinas, Lácteos, etc.) de forma independiente al stock.
-- **Selector de Stock Inteligente**: Mejora en el formulario de inventario con un **Combobox buscable** para seleccionar ingredientes de la base maestra, eliminando la entrada manual de IDs.
-- **Foro de Noticias y Artículos**: Sección pública de noticias con vista de detalle para artículos específicos, utilizando rutas dinámicas con GUIDs.
-- **Sistema de Alertas Neobrutalista**: Integración de **SweetAlert2** personalizada con el estilo visual de la marca (bordes gruesos, sombras marcadas) gestionado mediante un `AlertService`.
-- **Sidebar Dinámico**: Navegación reestructurada que prioriza las secciones públicas: Productos, Noticias y Sobre Nosotros.
+- **Backend Integration**: Fully connected to the .NET 8 API using `HttpClient` and standardized `ApiResponse<T>` models.
+- **Environment Configuration**: Multi-environment support (Production/Development) for API endpoints.
+- **Authentication System**: Secure Login, Registration, and Password Recovery flows integrated with JWT tokens.
+- **Master Ingredient Management**: New module to manage the ingredient database independently from stock.
+- **Smart Stock Selector**: Improved inventory form with a searchable combobox to select ingredients from the master database.
+- **News & Articles Forum**: Public news section with detail views for specific articles using dynamic routing.
+- **Neobrutalist Alert System**: Custom **SweetAlert2** integration styled to match the brand (thick borders, sharp shadows) managed via `AlertService`.
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
-- **Angular 19** (Signals, Standalone Components, Control Flow, toSignal)
-- **TypeScript** (Interfaces estrictas y DTOs)
-- **SweetAlert2**: Alertas y confirmaciones personalizadas.
-- **RxJS**: Manejo de flujos de datos y simulación de latencia de API.
-- **CSS3** (Diseño Neobrutalista con CSS Variables)
-- **Reactive Forms**: Validaciones avanzadas y selectores dinámicos.
+- **Angular 19** (Signals, Standalone Components, Control Flow, `inject()`)
+- **TypeScript** (Strict interfaces and DTOs)
+- **HttpClient**: Full REST API integration.
+- **SweetAlert2**: Custom alerts and confirmations.
+- **RxJS**: Data stream management and reactive state.
+- **CSS3** (Neobrutalist Design with CSS Variables)
+- **Reactive Forms**: Advanced validations and dynamic selectors.
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
 - **Core**: 
-  - `services/`: AlertService, NewsService, IngredientService, InventoryService, AuthService.
-  - `interfaces/`: Modelos de datos compartidos (NewsArticle, IngredientDto, etc).
-  - `data/`: `app-data.ts` con Mock Data para desarrollo sin backend.
+  - `services/`: `AuthService`, `RecipeService`, `IngredientService`, `InventoryService`, `NewsService`, `AlertService`.
+  - `interfaces/`: Standardized `ApiResponse`, `AuthResult`, `RecipeDto`, `IngredientDto`, etc.
+  - `environments/`: API configuration for different environments.
 - **Pages**: 
-  - `news/` & `article/`: Foro público y detalle de noticias.
-  - `ingredient/`: Gestión maestra de ingredientes.
-  - `inventory/`: Control de stock con selector buscable.
-  - `auth/`: Login estilizado con feedback de SweetAlert2.
+  - `news/` & `article/`: Public forum and news details.
+  - `ingredient/`: Master ingredient management.
+  - `inventory/`: Stock control with searchable selector.
+  - `auth/`: Styled login and registration with SweetAlert2 feedback.
 
-## 🔌 Integración con Backend
+## 🔌 Backend Integration
 
-La aplicación está preparada para conectarse a una API REST. Consulta el archivo `API_INSTRUCTIONS.md` para ver la especificación de los endpoints y el formato de datos requerido.
+The application is connected to a REST API. For detailed endpoint specifications and data formats, refer to `API_INSTRUCTIONS.md`.
 
-## 🎨 Estilo Visual
+- **Base URL**: `https://localhost:7229/api` (Configurable in `src/environments/`)
+- **Standard Response**: All endpoints return an `ApiResponse<T>` object including `data`, `message`, `isSuccess`, and `pagination`.
 
-La aplicación utiliza un estilo **Neobrutalista** caracterizado por:
-- Sombras negras pronunciadas (`box-shadow: 12px 12px 0px var(--accent-color)`).
-- Bordes gruesos y definidos.
-- Colores pastel vibrantes (Muted Rose, Creamy Vanilla).
-- Tipografía: 'Quicksand' para lectura y 'Playfair Display' para títulos.
+## 🎨 Visual Style
 
-## 🚀 Instalación y Uso
+The application uses a **Neobrutalist** style characterized by:
+- Pronounced black shadows (`box-shadow: 12px 12px 0px var(--accent-color)`).
+- Thick and defined borders.
+- Vibrant pastel colors (Muted Rose, Creamy Vanilla).
+- Typography: 'Quicksand' for body text and 'Playfair Display' for headings.
 
-1. Instalar dependencias: `npm install`
-2. Iniciar servidor: `npm start`
-3. Abrir `http://localhost:4200`
+## 🚀 Installation and Usage
+
+1. Install dependencies: `npm install`
+2. Start development server: `npm start`
+3. Open `http://localhost:4200`
 
 ---
-Desarrollado con ❤️ para amantes de la buena repostería.
+Developed with ❤️ for pastry lovers.

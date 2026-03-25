@@ -1,8 +1,10 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map, of, delay } from 'rxjs';
+import { Observable, tap, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../interfaces/api-response.interface';
+import { UserLoginRequestDto, UserRegistrationRequestDto, AuthResult, UserForggotPasswordRequestDto, ResetPasswordRequestDto, ConfirmEmailDto } from '../interfaces/auth.interface';
 
 export interface User {
   name: string;
@@ -16,7 +18,7 @@ export interface User {
 export class AuthService {
   private router = inject(Router);
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7229/api/Authentication';
+  private apiUrl = `${environment.apiUrl}/Authentication`;
 
   public currentUser = signal<User | null>(null);
   public isAuthenticated = signal(false);
@@ -29,66 +31,44 @@ export class AuthService {
     }
   }
 
-  login(credentials: any): Observable<ApiResponse<User>> {
-    // TEMPORAL: Mock data
-    // const mockResponse: ApiResponse<User> = {
-    //   data: {
-    //     name: credentials.email.split('@')[0],
-    //     email: credentials.email,
-    //     token: 'mock-jwt-token'
-    //   },
-    //   message: 'Success',
-    //   errors: null,
-    //   isSuccess: true,
-    //   statusCode: 200
-    // };
-
-    // return of(mockResponse).pipe(
-    //   delay(800),
-    //   tap(response => {
-    //     if (response.isSuccess && response.data) {
-    //       localStorage.setItem('user', JSON.stringify(response.data));
-    //       this.currentUser.set(response.data);
-    //       this.isAuthenticated.set(true);
-    //     }
-    //   })
-    // );
-
-    // BACKEND INTEGRATION:
-    return this.http.post<ApiResponse<User>>(`${this.apiUrl}/Login`, credentials)
+  login(credentials: UserLoginRequestDto): Observable<ApiResponse<AuthResult>> {
+    return this.http.post<ApiResponse<AuthResult>>(`${this.apiUrl}/Login`, credentials)
       .pipe(
         tap(response => {
-          console.log(response);
-          
           if (response.isSuccess && response.data) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-            this.currentUser.set(response.data);
+            const user: User = {
+              name: credentials.email.split('@')[0], // Fallback if name not in token
+              email: credentials.email,
+              token: response.data.token
+            };
+            localStorage.setItem('user', JSON.stringify(user));
+            this.currentUser.set(user);
             this.isAuthenticated.set(true);
           }
         })
       );
   }
 
-  register(userData: any): Observable<ApiResponse<any>> {
-    // TEMPORAL: Mock data
-    const mockResponse: ApiResponse<any> = {
-      data: null,
-      message: 'User registered successfully',
-      errors: null,
-      isSuccess: true,
-      statusCode: 200
-    };
-    return of(mockResponse).pipe(delay(800));
+  register(userData: UserRegistrationRequestDto): Observable<ApiResponse<AuthResult>> {
+    return this.http.post<ApiResponse<AuthResult>>(`${this.apiUrl}/Register`, userData);
+  }
 
-    /* BACKEND INTEGRATION:
-    return this.http.post<ApiResponse<any>>(`${this.apiUrl}/Register`, userData);
-    */
+  forgotPassword(data: UserForggotPasswordRequestDto): Observable<ApiResponse<AuthResult>> {
+    return this.http.post<ApiResponse<AuthResult>>(`${this.apiUrl}/ForgotPassword`, data);
+  }
+
+  resetPassword(data: ResetPasswordRequestDto): Observable<ApiResponse<AuthResult>> {
+    return this.http.post<ApiResponse<AuthResult>>(`${this.apiUrl}/ResetPassword`, data);
+  }
+
+  confirmEmail(data: ConfirmEmailDto): Observable<ApiResponse<AuthResult>> {
+    return this.http.post<ApiResponse<AuthResult>>(`${this.apiUrl}/ConfirmEmail`, data);
   }
 
   logout() {
     localStorage.removeItem('user');
     this.currentUser.set(null);
     this.isAuthenticated.set(false);
-    this.router.navigate(['/home/login']);
+    this.router.navigate(['/auth']);
   }
 }

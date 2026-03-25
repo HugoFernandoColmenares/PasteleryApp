@@ -1,5 +1,8 @@
 <div class="recipes-container">
-    <h1>Recetas de la Casa</h1>
+    <div class="recipes-header">
+        <h1>Recetas de la Casa</h1>
+        <button class="primary-button" routerLink="/home/recipes/new">Nueva Receta</button>
+    </div>
     <p class="subtitle">Aprende los secretos de nuestros maestros panaderos.</p>
 
     @if (loading()) {
@@ -14,7 +17,10 @@
                     <span>Costo total: {{ recipe.totalCost | currency:'USD' }}</span>
                     <span>Precio sugerido: {{ recipe.suggestedPrice | currency:'USD' }}</span>
                 </div>
-                <button class="secondary-button" [routerLink]="['/home', { id: recipe.id }]">Ver Receta Completa</button>
+                <div class="recipe-actions">
+                    <button class="secondary-button" [routerLink]="['/home/recipes', recipe.id, 'edit']">Editar</button>
+                    <button class="delete-button" (click)="deleteRecipe(recipe.id)">Eliminar</button>
+                </div>
             </div>
             }
         </div>

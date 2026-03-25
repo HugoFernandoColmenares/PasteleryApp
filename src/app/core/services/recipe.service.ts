@@ -1,17 +1,17 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, of } from 'rxjs';
-import { delay, finalize } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../interfaces/api-response.interface';
-import { ListRecipeDto, RecipeDto } from '../interfaces/recipe.interface';
-import { RECIPES_DATA } from '../data/app-data';
+import { ListRecipeDto, RecipeDto, CreateRecipeDto } from '../interfaces/recipe.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5000/api/Recipe';
+  private apiUrl = `${environment.apiUrl}/Recipe`;
 
   private _recipes = signal<ListRecipeDto[]>([]);
   public recipes = this._recipes.asReadonly();
@@ -19,46 +19,43 @@ export class RecipeService {
   private _loading = signal<boolean>(false);
   public loading = this._loading.asReadonly();
 
-  getRecipes(): void {
+  getRecipes(page: number = 1, size: number = 10): void {
     this._loading.set(true);
 
-    // TEMPORAL: Mock data
-    of(RECIPES_DATA).pipe(
-      delay(1000),
-      finalize(() => this._loading.set(false))
-    ).subscribe(recipes => {
-      this._recipes.set(recipes);
-    });
-
-    /* BACKEND INTEGRATION:
-    this.http.get<ApiResponse<ListRecipeDto[]>>(this.apiUrl)
+    this.http.get<ApiResponse<ListRecipeDto[]>>(`${this.apiUrl}?pageNumber=${page}&pageSize=${size}`)
       .pipe(
-        map(response => response.data || []),
         finalize(() => this._loading.set(false))
-      ).subscribe(recipes => {
-        this._recipes.set(recipes);
+      ).subscribe({
+        next: (response) => {
+          this._recipes.set(response.data || []);
+        },
+        error: (err) => {
+          console.error('Error fetching recipes', err);
+          this._recipes.set([]);
+        }
       });
-    */
   }
 
   getRecipeById(id: string): Observable<RecipeDto | null> {
-    // TEMPORAL: Mock data
-    const recipe = RECIPES_DATA.find(r => r.id === id);
-    if (!recipe) return of(null);
-
-    const recipeDetail: RecipeDto = {
-      ...recipe,
-      instructions: 'Pasos detallados para preparar esta deliciosa receta...',
-      recipeIngredients: []
-    };
-    return of(recipeDetail).pipe(delay(500));
-
-    /* BACKEND INTEGRATION:
     return this.http.get<ApiResponse<RecipeDto>>(`${this.apiUrl}/${id}`)
       .pipe(
         map(response => response.data)
       );
-    */
+  }
+
+  createRecipe(recipe: CreateRecipeDto): Observable<RecipeDto | null> {
+    return this.http.post<ApiResponse<RecipeDto>>(this.apiUrl, recipe)
+      .pipe(map(response => response.data));
+  }
+
+  updateRecipe(id: string, recipe: RecipeDto): Observable<RecipeDto | null> {
+    return this.http.put<ApiResponse<RecipeDto>>(`${this.apiUrl}/${id}`, recipe)
+      .pipe(map(response => response.data));
+  }
+
+  deleteRecipe(id: string): Observable<boolean> {
+    return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/${id}`)
+      .pipe(map(response => !!response.data));
   }
 
   getCategories(): string[] {

@@ -2,6 +2,13 @@
   padding: 2rem;
 }
 
+.recipes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .subtitle {
   color: var(--text-color);
   opacity: 0.8;
@@ -29,8 +36,26 @@
 
 .recipe-meta {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
   margin: 1.5rem 0;
   font-weight: 700;
   font-size: 0.9rem;
+}
+
+.recipe-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.delete-button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
 }

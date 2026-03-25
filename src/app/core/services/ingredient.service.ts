@@ -1,12 +1,17 @@
-import { Injectable, signal } from '@angular/core';
-import { INGREDIENTS_DATA } from '@core/data/app-data';
-import { IngredientDto } from '@core/interfaces/inventory-item.interface';
-import { delay, of, tap } from 'rxjs';
+import { Injectable, signal, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { IngredientDto } from '../interfaces/inventory-item.interface';
+import { ApiResponse } from '../interfaces/api-response.interface';
+import { finalize, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IngredientService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/Ingredient`;
+
   private ingredientsSignal = signal<IngredientDto[]>([]);
   private loadingSignal = signal<boolean>(false);
 
@@ -17,36 +22,30 @@ export class IngredientService {
 
   loadIngredients() {
     this.loadingSignal.set(true);
-    return of([...INGREDIENTS_DATA]).pipe(
-      delay(500),
-      tap(data => {
-        this.ingredientsSignal.set(data);
-        this.loadingSignal.set(false);
-      })
+    return this.http.get<ApiResponse<IngredientDto[]>>(this.apiUrl).pipe(
+      finalize(() => this.loadingSignal.set(false)),
+      tap(response => {
+        this.ingredientsSignal.set(response.data || []);
+      }),
+      map(response => response.data || [])
     );
   }
 
   addIngredient(ingredient: Partial<IngredientDto>) {
-    const newIngredient: IngredientDto = {
-      ...ingredient,
-      id: `ing-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`
-    } as IngredientDto;
-
-    const currentIngredients = this.ingredientsSignal();
-    this.ingredientsSignal.set([...currentIngredients, newIngredient]);
-    return of(newIngredient).pipe(delay(300));
+    return this.http.post<ApiResponse<IngredientDto>>(this.apiUrl, ingredient).pipe(
+      map(response => response.data)
+    );
   }
 
   updateIngredient(ingredient: IngredientDto) {
-    const currentIngredients = this.ingredientsSignal();
-    const updatedIngredients = currentIngredients.map(i => i.id === ingredient.id ? ingredient : i);
-    this.ingredientsSignal.set(updatedIngredients);
-    return of(ingredient).pipe(delay(300));
+    return this.http.put<ApiResponse<IngredientDto>>(`${this.apiUrl}/${ingredient.id}`, ingredient).pipe(
+      map(response => response.data)
+    );
   }
 
   deleteIngredient(id: string) {
-    const currentIngredients = this.ingredientsSignal();
-    this.ingredientsSignal.set(currentIngredients.filter(i => i.id !== id));
-    return of(true).pipe(delay(300));
+    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`).pipe(
+      map(response => response.isSuccess)
+    );
   }
 }

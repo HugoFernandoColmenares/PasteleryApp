@@ -42,6 +42,21 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/recipes/recipes').then((m) => m.Recipes),
       },
       {
+        path: 'recipes/new',
+        loadComponent: () => import('./pages/recipes/recipe-form/recipe-form').then((m) => m.RecipeForm),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'recipes/:id/edit',
+        loadComponent: () => import('./pages/recipes/recipe-form/recipe-form').then((m) => m.RecipeForm),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'storage-locations',
+        loadComponent: () => import('./pages/storage-locations/storage-locations').then((m) => m.StorageLocations),
+        canActivate: [authGuard],
+      },
+      {
         path: 'news',
         loadComponent: () => import('./pages/news/news').then((m) => m.News),
       },
