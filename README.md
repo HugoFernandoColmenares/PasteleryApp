@@ -55,5 +55,13 @@ The application uses a **Neobrutalist** style characterized by:
 2. Start development server: `npm start`
 3. Open `http://localhost:4200`
 
+## 🧪 Testing
+
+The project includes unit tests for core functionalities using **Jasmine** and **Karma**.
+
+1. **Run all tests**: `npm run test`
+2. **Run tests with coverage**: `ng test --code-coverage`
+3. **Run tests in CI mode (Headless)**: `ng test --watch=false --browsers=ChromeHeadlessCI`
+
 ---
 Developed with ❤️ for pastry lovers.
