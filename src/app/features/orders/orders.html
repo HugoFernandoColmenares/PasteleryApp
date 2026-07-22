@@ -1,0 +1,40 @@
+<div class="orders-container">
+  <header class="orders-header">
+    <h1>Mis Pedidos</h1>
+    <button class="secondary-button" routerLink="/home/main">Seguir comprando</button>
+  </header>
+
+  @if (loading()) {
+    <p class="orders-state">Cargando pedidos...</p>
+  } @else if (orders().length === 0) {
+    <p class="orders-state">Aún no tienes pedidos registrados.</p>
+  } @else {
+    <div class="orders-list">
+      @for (order of orders(); track order.id) {
+        <article class="order-card">
+          <div class="order-card__header">
+            <div>
+              <h2>Pedido #{{ order.id.slice(0, 8) }}</h2>
+              <p class="order-card__date">{{ order.createdAt | date: 'medium' }}</p>
+            </div>
+            <span class="order-card__status">{{ order.status }}</span>
+          </div>
+
+          <ul class="order-card__items">
+            @for (item of order.items; track item.id) {
+              <li>
+                <span>{{ item.recipeName }} x{{ item.quantity }}</span>
+                <span>{{ item.lineTotal | currency: 'USD' }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="order-card__total">
+            <span>Total</span>
+            <strong>{{ order.totalAmount | currency: 'USD' }}</strong>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</div>

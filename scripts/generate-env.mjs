@@ -65,9 +65,30 @@ export const environment = {
   writeFileSync(resolve(envDir, fileName), content, 'utf8');
 }
 
+function writeSupabasePreconnect() {
+  const supabaseUrl = requireEnv('SUPABASE_URL');
+  const origin = new URL(supabaseUrl).origin;
+  const indexPath = resolve(root, 'src/index.html');
+  const marker = '<!-- @supabase-preconnect -->';
+  const preconnectTag = `  <link rel="preconnect" href="${origin}">`;
+  let html = readFileSync(indexPath, 'utf8');
+  const preconnectPattern = /^\s*<link rel="preconnect" href="[^"]+">\s*$/m;
+
+  if (preconnectPattern.test(html)) {
+    html = html.replace(preconnectPattern, preconnectTag);
+  } else if (html.includes(marker)) {
+    html = html.replace(marker, `${preconnectTag}\n  ${marker}`);
+  } else {
+    html = html.replace('</head>', `  ${preconnectTag}\n</head>`);
+  }
+
+  writeFileSync(indexPath, html, 'utf8');
+}
+
 loadEnvFile();
 writeEnvironmentFile('environment.ts', true);
 writeEnvironmentFile('environment.development.ts', false);
+writeSupabasePreconnect();
 
 console.log('Environment files generated.');
 console.log(`  SUPABASE_URL: ${process.env.SUPABASE_URL}`);

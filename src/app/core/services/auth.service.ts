@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   private setUserFromSession(
-    authUser: { email?: string; user_metadata?: Record<string, string> },
+    authUser: { id: string; email?: string; user_metadata?: Record<string, string> },
     token?: string,
   ) {
     const email = authUser.email ?? '';
@@ -54,6 +54,7 @@ export class AuthService {
     const displayName = [firstName, lastName].filter(Boolean).join(' ').trim() || email.split('@')[0];
 
     const user: User = {
+      id: authUser.id,
       name: displayName,
       email,
       token,

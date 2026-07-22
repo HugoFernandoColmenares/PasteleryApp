@@ -1,5 +1,6 @@
 import { IngredientDto, InventoryItemDto } from '@core/models/inventory-item.model';
 import { NewsArticle } from '@core/models/news-article.model';
+import { CreateOrderItemDto, OrderDto, OrderItemDto, OrderStatus } from '@core/models/order.model';
 import {
   CreateRecipeDto,
   ListRecipeDto,
@@ -62,6 +63,24 @@ export interface NewsArticleRow {
   author: string;
   image_url: string | null;
   icon_url: string | null;
+}
+
+export interface OrderRow {
+  id: string;
+  user_id: string;
+  status: OrderStatus;
+  total_amount: number;
+  created_at: string;
+}
+
+export interface OrderItemRow {
+  id: string;
+  order_id: string;
+  recipe_id: string;
+  recipe_name: string;
+  unit_price: number;
+  quantity: number;
+  line_total: number;
 }
 
 export function mapIngredientRow(row: IngredientRow): IngredientDto {
@@ -139,6 +158,48 @@ export function mapNewsArticleRow(row: NewsArticleRow): NewsArticle {
     author: row.author,
     imageUrl: row.image_url ?? undefined,
     iconUrl: row.icon_url ?? undefined,
+  };
+}
+
+export function mapOrderItemRow(row: OrderItemRow): OrderItemDto {
+  return {
+    id: row.id,
+    orderId: row.order_id,
+    recipeId: row.recipe_id,
+    recipeName: row.recipe_name,
+    unitPrice: Number(row.unit_price),
+    quantity: row.quantity,
+    lineTotal: Number(row.line_total),
+  };
+}
+
+export function mapOrderRow(row: OrderRow, items: OrderItemRow[] = []): OrderDto {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    status: row.status,
+    totalAmount: Number(row.total_amount),
+    createdAt: row.created_at,
+    items: items.map(mapOrderItemRow),
+  };
+}
+
+export function mapCreateOrderPayload(userId: string, totalAmount: number) {
+  return {
+    user_id: userId,
+    status: 'confirmed' as const,
+    total_amount: totalAmount,
+  };
+}
+
+export function mapCreateOrderItemPayload(orderId: string, item: CreateOrderItemDto) {
+  return {
+    order_id: orderId,
+    recipe_id: item.recipeId,
+    recipe_name: item.recipeName,
+    unit_price: item.unitPrice,
+    quantity: item.quantity,
+    line_total: item.lineTotal,
   };
 }
 

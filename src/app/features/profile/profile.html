@@ -3,5 +3,6 @@
   @if (user()) {
   <p><strong>Nombre:</strong> {{ user()?.name }}</p>
   <p><strong>Correo Electrónico:</strong> {{ user()?.email }}</p>
+  <a class="secondary-button" routerLink="/home/orders">Ver mis pedidos</a>
   }
 </div>
