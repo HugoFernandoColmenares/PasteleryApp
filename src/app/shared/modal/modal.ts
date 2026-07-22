@@ -1,6 +1,6 @@
 import { Component, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ListRecipeDto } from '@core/interfaces/recipe.interface';
+import { ListRecipeDto } from '@core/models/recipe.model';
 
 @Component({
     selector: 'shared-modal',

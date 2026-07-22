@@ -11,7 +11,7 @@ export interface UserRegistrationRequestDto {
   confirmPassword: string;
 }
 
-export interface UserForggotPasswordRequestDto {
+export interface UserForgotPasswordRequestDto {
   email: string;
 }
 
@@ -37,4 +37,10 @@ export interface UserProfile {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+  token?: string;
 }

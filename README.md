@@ -36,6 +36,7 @@ Refer to `design_guidelines.md` for tokens, component patterns, form standards, 
 | Core | `src/app/core/` | Services, models, guards, and shared data |
 | Auth | `src/app/auth/` | Authentication views (login, register, password recovery) |
 | Pages | `src/app/pages/` | Public views that do not require authentication |
+| Features | `src/app/features/` | Authenticated business views (inventory, profile, payment) |
 | Shared | `src/app/shared/` | Reusable UI components (header, card, modal, cart) |
 
 Key conventions:
@@ -73,8 +74,10 @@ Refer to `architecture_guidelines.md` for the complete structure, routing rules,
 - Recipe catalog with cart and checkout flow.
 - Authenticated inventory, ingredient, and storage location management.
 - Custom alert system through SweetAlert2.
-- Lazy-loaded standalone routes with hash-based navigation.
-- Production deployment configuration for Vercel.
+- Warm organic design system with Fraunces/Inter typography and design tokens.
+- Form fields with indicative icons and password visibility toggles in auth flows.
+- Type-safe models centralized in `core/models/`.
+- Authenticated features isolated under `features/`.
 
 ---
 
@@ -146,14 +149,11 @@ ng test --watch=false --browsers=ChromeHeadlessCI
 
 The following items are identified for future implementation:
 
-- Migrate type definitions from `core/interfaces/` to `core/models/` to align with architecture standards.
-- Reorganize authenticated views currently under `pages/` into a dedicated protected feature area.
-- Full compliance with the warm organic design system (replacing legacy neobrutalist styles where they remain).
-- Form enhancements: field icons, password visibility toggles, and social media icon fields in data models.
 - Migrate unit tests from Karma to Vitest (optional Angular 22 migration).
 - Role-based authorization beyond the current authentication guard.
 - Order history and customer account management.
 - Admin dashboard with analytics and reporting.
+- Social media icon fields across admin tables and data models.
 - Internationalization (i18n) support.
 - Progressive Web App (PWA) capabilities.
 

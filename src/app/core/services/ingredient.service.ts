@@ -1,8 +1,8 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { IngredientDto } from '../interfaces/inventory-item.interface';
-import { ApiResponse } from '../interfaces/api-response.interface';
+import { ApiResponse } from '@core/models/api-response.model';
+import { IngredientDto } from '@core/models/inventory-item.model';
 import { finalize, map, tap } from 'rxjs';
 
 @Injectable({

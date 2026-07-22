@@ -1,12 +1,7 @@
-import { ListRecipeDto } from "@core/interfaces/recipe.interface";
-import { InventoryItemDto, IngredientDto } from "@core/interfaces/inventory-item.interface";
-import { NewsArticle } from "@core/interfaces/news-article.interface";
-
-export interface SidebarItem {
-    label: string;
-    icon: string;
-    path: string;
-}
+import { ListRecipeDto } from '@core/models/recipe.model';
+import { IngredientDto, InventoryItemDto } from '@core/models/inventory-item.model';
+import { NewsArticle } from '@core/models/news-article.model';
+import { SidebarItem } from '@core/models/sidebar.model';
 
 export const INGREDIENTS_DATA: IngredientDto[] = [
     { id: 'ing-001', name: 'Harina de Trigo', category: 'Harinas', description: 'Harina de trigo refinada para pastelería.' },

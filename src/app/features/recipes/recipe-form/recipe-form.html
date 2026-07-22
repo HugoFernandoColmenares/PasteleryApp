@@ -1,0 +1,82 @@
+<div class="form-container">
+  <h2>{{ isEditMode() ? 'Editar Receta' : 'Nueva Receta' }}</h2>
+
+  <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
+    <div class="form-group">
+      <label for="name">Nombre de la Receta</label>
+      <div class="form-field">
+        <span class="form-field__icon" aria-hidden="true">R</span>
+        <input type="text" id="name" formControlName="name" placeholder="Ej: Pastel de Chocolate" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripcion</label>
+      <div class="form-field">
+        <textarea id="description" formControlName="description" placeholder="Breve descripcion..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="instructions">Instrucciones</label>
+      <div class="form-field">
+        <textarea id="instructions" formControlName="instructions" placeholder="Pasos a seguir..." rows="5"></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="suggestedPrice">Precio Sugerido</label>
+        <div class="form-field">
+          <span class="form-field__icon" aria-hidden="true">$</span>
+          <input type="number" id="suggestedPrice" formControlName="suggestedPrice" min="0" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Imagen de la Receta</label>
+        <div class="upload-container">
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden />
+          <button type="button" class="btn-upload" (click)="fileInput.click()">
+            {{ recipeForm.get('imageUrl')?.value ? 'Cambiar Imagen' : 'Subir Imagen' }}
+          </button>
+          @if (recipeForm.get('imageUrl')?.value; as imageUrl) {
+            <div class="image-preview">
+              <img [src]="imageUrl" alt="Preview" />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="ingredients-section">
+      <h3>Ingredientes</h3>
+      <div formArrayName="recipeIngredients">
+        @for (ri of recipeIngredients.controls; track $index) {
+          <div [formGroupName]="$index" class="ingredient-row">
+            <div class="form-group">
+              <select formControlName="ingredientId">
+                <option value="">Seleccionar ingrediente</option>
+                @for (ing of ingredients(); track ing.id) {
+                  <option [value]="ing.id">{{ ing.name }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="number" formControlName="amount" placeholder="Cantidad" min="0" />
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="unit" placeholder="Unidad (kg, g, etc)" />
+            </div>
+            <button type="button" class="btn-remove" (click)="removeIngredient($index)">x</button>
+          </div>
+        }
+      </div>
+      <button type="button" class="btn-add" (click)="addIngredient()">Anadir Ingrediente</button>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="cancel()">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="recipeForm.invalid">Guardar Receta</button>
+    </div>
+  </form>
+</div>

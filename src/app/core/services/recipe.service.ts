@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { ApiResponse } from '../interfaces/api-response.interface';
-import { ListRecipeDto, RecipeDto, CreateRecipeDto } from '../interfaces/recipe.interface';
+import { ApiResponse } from '@core/models/api-response.model';
+import { CreateRecipeDto, ListRecipeDto, RecipeDto } from '@core/models/recipe.model';
 
 @Injectable({
   providedIn: 'root'

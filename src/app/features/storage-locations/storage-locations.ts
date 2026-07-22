@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@ang
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StorageLocationService } from '@core/services/storage-location.service';
 import { AlertService } from '@core/services/alert.service';
-import { StorageLocationDto, CreateStorageLocationDto } from '@core/interfaces/storage-location.interface';
+import { StorageLocationDto, CreateStorageLocationDto } from '@core/models/storage-location.model';
 
 @Component({
   selector: 'app-storage-locations',

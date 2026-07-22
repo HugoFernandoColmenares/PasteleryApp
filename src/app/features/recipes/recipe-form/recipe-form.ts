@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '@core/services/recipe.service';
 import { IngredientService } from '@core/services/ingredient.service';
 import { AlertService } from '@core/services/alert.service';
-import { RecipeDto, CreateRecipeDto } from '@core/interfaces/recipe.interface';
+import { RecipeDto, CreateRecipeDto, RecipeIngredientDto } from '@core/models/recipe.model';
 
 @Component({
   selector: 'app-recipe-form',
@@ -70,11 +70,11 @@ export class RecipeForm implements OnInit {
     });
   }
 
-  addIngredient(ri?: any) {
+  addIngredient(ingredient?: RecipeIngredientDto) {
     const ingredientForm = this.fb.group({
-      ingredientId: [ri?.ingredientId || '', Validators.required],
-      amount: [ri?.amount || 0, [Validators.required, Validators.min(0)]],
-      unit: [ri?.unit || 'kg', Validators.required],
+      ingredientId: [ingredient?.ingredientId || '', Validators.required],
+      amount: [ingredient?.amount || 0, [Validators.required, Validators.min(0)]],
+      unit: [ingredient?.unit || 'kg', Validators.required],
     });
     this.recipeIngredients.push(ingredientForm);
   }
@@ -83,12 +83,16 @@ export class RecipeForm implements OnInit {
     this.recipeIngredients.removeAt(index);
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.recipeForm.patchValue({ imageUrl: e.target.result });
+      reader.onload = (loadEvent: ProgressEvent<FileReader>) => {
+        const result = loadEvent.target?.result;
+        if (typeof result === 'string') {
+          this.recipeForm.patchValue({ imageUrl: result });
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -108,7 +112,7 @@ export class RecipeForm implements OnInit {
       this.recipeService.updateRecipe(this.recipeId()!, updatedRecipe).subscribe(res => {
         if (res) {
           this.alertService.toast('Receta actualizada correctamente');
-          this.router.navigate(['/recipes']);
+          this.router.navigate(['/home/recipes']);
         }
       });
     } else {
@@ -116,13 +120,13 @@ export class RecipeForm implements OnInit {
       this.recipeService.createRecipe(newRecipe).subscribe(res => {
         if (res) {
           this.alertService.toast('Receta creada correctamente');
-          this.router.navigate(['/recipes']);
+          this.router.navigate(['/home/recipes']);
         }
       });
     }
   }
 
   cancel() {
-    this.router.navigate(['/recipes']);
+    this.router.navigate(['/home/recipes']);
   }
 }

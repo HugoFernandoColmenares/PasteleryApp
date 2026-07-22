@@ -1,0 +1,19 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  max-width: 60rem;
+  margin-inline: auto;
+  padding: 2rem;
+  background: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.profile-container h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+}
+
+.profile-container p {
+  font-style: italic;
+  color: var(--ink-mute);
+}

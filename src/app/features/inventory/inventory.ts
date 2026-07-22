@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InventoryItemDto, IngredientDto } from '@core/interfaces/inventory-item.interface';
+import { InventoryItemDto, IngredientDto } from '@core/models/inventory-item.model';
 import { InventoryService } from '@core/services/inventory.service';
 import { IngredientService } from '@core/services/ingredient.service';
 import { AlertService } from '@core/services/alert.service';

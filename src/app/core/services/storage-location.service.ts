@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { ApiResponse } from '../interfaces/api-response.interface';
-import { StorageLocationDto, CreateStorageLocationDto } from '../interfaces/storage-location.interface';
+import { ApiResponse } from '@core/models/api-response.model';
+import { CreateStorageLocationDto, StorageLocationDto } from '@core/models/storage-location.model';
 
 @Injectable({
   providedIn: 'root',

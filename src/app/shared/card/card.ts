@@ -1,7 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ListRecipeDto } from '@core/interfaces/recipe.interface';
+import { ListRecipeDto } from '@core/models/recipe.model';
 import { CartService } from '@core/services/cart.service';
 import Modal from '@shared/modal/modal';
 

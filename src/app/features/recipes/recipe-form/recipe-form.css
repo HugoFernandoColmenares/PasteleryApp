@@ -1,0 +1,148 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 2rem;
+  background: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.btn-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.6rem;
+  border: 0.1rem dashed var(--line);
+  border-radius: 0;
+  background: var(--cream-soft);
+  color: var(--ink-mute);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease-quiet),
+    color 0.3s var(--ease-quiet),
+    border-color 0.3s var(--ease-quiet);
+}
+
+.btn-upload:hover {
+  background: var(--sand);
+  color: var(--ink);
+  border-color: var(--terracotta);
+}
+
+.image-preview {
+  width: 100%;
+  max-width: 20rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(0.95);
+}
+
+.ingredients-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2rem;
+  background: var(--cream-soft);
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.btn-remove {
+  width: 3rem;
+  height: 3rem;
+  border: 0.1rem solid var(--error-color);
+  border-radius: 999rem;
+  background: transparent;
+  color: var(--error-color);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease-quiet),
+    color 0.3s var(--ease-quiet);
+}
+
+.btn-remove:hover {
+  background-color: var(--error-color);
+  color: var(--cream-bright);
+}
+
+.btn-add {
+  align-self: flex-start;
+  padding: 0.8rem 1.4rem;
+  border: 0.1rem solid var(--ink);
+  border-radius: 999rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: var(--ink);
+  color: var(--cream-bright);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-primary {
+  padding: 1rem 2rem;
+  border: 0.1rem solid var(--ink);
+  border-radius: 999rem;
+  background: var(--ink);
+  color: var(--cream-bright);
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 1rem 2rem;
+  border: 0.1rem solid var(--ink);
+  border-radius: 999rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 641px) {
+  .form-row,
+  .ingredient-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ingredient-row {
+    grid-template-columns: 2fr 1fr 1fr auto;
+  }
+}

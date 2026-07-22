@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Auth } from './auth';
-import { AlertService } from '../core/services/alert.service';
-import { AuthService } from '../core/services/auth.service';
+import { AlertService } from '@core/services/alert.service';
+import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
@@ -55,6 +55,6 @@ describe('Auth Component', () => {
     component.login();
 
     expect(authServiceSpy.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'password' });
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/profile']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/home/profile']);
   });
 });

@@ -1,0 +1,126 @@
+.ingredient-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 120rem;
+  margin-inline: auto;
+  padding: 2rem;
+}
+
+.ingredient-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.table-card {
+  padding: 1.6rem;
+  background-color: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.neobrutalist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.neobrutalist-table th,
+.neobrutalist-table td {
+  padding: 1.2rem;
+  text-align: left;
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.neobrutalist-table th {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background-color: var(--cream-soft);
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0.4rem;
+  transition: color 0.3s var(--ease-quiet);
+}
+
+.icon-btn:hover {
+  color: var(--terracotta);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(44, 38, 32, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: min(90%, 60rem);
+  padding: 2rem;
+  background: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  border: 0;
+  background: transparent;
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@media (min-width: 641px) {
+  .ingredient-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

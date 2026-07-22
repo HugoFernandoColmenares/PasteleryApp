@@ -1,6 +1,6 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '@core/services/auth.service';
+import { User } from '@core/models/auth.model';
 
 @Component({
   selector: 'app-header',

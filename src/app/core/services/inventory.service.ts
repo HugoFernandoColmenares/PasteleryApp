@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { ApiResponse } from '../interfaces/api-response.interface';
-import { InventoryItemDto } from '../interfaces/inventory-item.interface';
+import { ApiResponse } from '@core/models/api-response.model';
+import { InventoryItemDto } from '@core/models/inventory-item.model';
 
 @Injectable({
   providedIn: 'root',

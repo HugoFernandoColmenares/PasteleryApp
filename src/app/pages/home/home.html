@@ -1,22 +1,11 @@
-<div class="recipe-list-container">
-  <div class="recipe-list-grid">
-    @for (recipe of recipes(); track recipe.id) {
-    <shared-card [recipe]="recipe" />
-    }
-  </div>
-</div>
-
-@if (recipe()) {
-  <div class="recipe-detail-container">
-    @if (recipe()?.imageUrl) {
-      <img [src]="$safeNavigationMigration(recipe()?.imageUrl)" [alt]="$safeNavigationMigration(recipe()?.name)">
-    }
-    <div class="recipe-details">
-      <h2>{{ recipe()?.name }}</h2>
-      <p>{{ recipe()?.description }}</p>
-      <p>Precio sugerido: {{ $safeNavigationMigration(recipe()?.suggestedPrice) | currency:'USD' }}</p>
+<div class="home">
+  @if (loading()) {
+    <p class="home__loading">Cargando productos...</p>
+  } @else {
+    <div class="home__grid card-grid">
+      @for (recipe of recipes(); track recipe.id) {
+        <shared-card [recipe]="recipe" />
+      }
     </div>
-  </div>
-} @else if (!loading()) {
-  <p>Receta no encontrada.</p>
-}
+  }
+</div>
