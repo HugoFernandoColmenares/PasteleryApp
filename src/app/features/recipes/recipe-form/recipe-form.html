@@ -36,12 +36,12 @@
         <label>Imagen de la Receta</label>
         <div class="upload-container">
           <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden />
-          <button type="button" class="btn-upload" (click)="fileInput.click()">
-            {{ recipeForm.get('imageUrl')?.value ? 'Cambiar Imagen' : 'Subir Imagen' }}
+          <button type="button" class="btn-upload" (click)="fileInput.click()" [disabled]="uploadingImage()">
+            {{ uploadingImage() ? 'Subiendo...' : recipeForm.get('imageUrl')?.value ? 'Cambiar Imagen' : 'Subir Imagen' }}
           </button>
           @if (recipeForm.get('imageUrl')?.value; as imageUrl) {
             <div class="image-preview">
-              <img [src]="imageUrl" alt="Preview" />
+              <img [src]="imageUrl | storageUrl" alt="Preview" />
             </div>
           }
         </div>

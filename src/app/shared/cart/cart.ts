@@ -1,10 +1,12 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CartService } from '@core/services/cart.service';
+import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, CurrencyPipe],
+  imports: [CommonModule, CurrencyPipe, RouterLink, StorageUrlPipe],
   templateUrl: './cart.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './cart.css',

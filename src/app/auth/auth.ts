@@ -4,13 +4,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { AlertService } from '@core/services/alert.service';
+import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
 
 type AuthMode = 'login' | 'register' | 'forgot-password' | 'reset-password';
 type PasswordField = 'login' | 'register' | 'confirm' | 'reset';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, NgOptimizedImage],
+  imports: [ReactiveFormsModule, NgOptimizedImage, StorageUrlPipe],
   templateUrl: './auth.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './auth.css',
@@ -20,6 +21,11 @@ export class Auth {
   private authService = inject(AuthService);
   private alertService = inject(AlertService);
   private router = inject(Router);
+
+  readonly authImages = {
+    left: 'auth/login_1.webp',
+    right: 'auth/login_2.webp',
+  } as const;
 
   mode = signal<AuthMode>('login');
   passwordVisible = signal<Record<PasswordField, boolean>>({

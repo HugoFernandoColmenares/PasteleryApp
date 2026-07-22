@@ -1,6 +1,6 @@
 <div class="auth">
   <div class="auth__decor auth__decor--left">
-    <img ngSrc="login_1.png" width="250" height="250" alt="" />
+    <img [ngSrc]="authImages.left | storageUrl" width="250" height="250" alt="" />
   </div>
 
   <div class="auth__card">
@@ -166,6 +166,6 @@
   </div>
 
   <div class="auth__decor auth__decor--right">
-    <img ngSrc="login_2.png" width="250" height="250" alt="" />
+    <img [ngSrc]="authImages.right | storageUrl" width="250" height="250" alt="" />
   </div>
 </div>

@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { ListRecipeDto } from '@core/models/recipe.model';
 import { CartService } from '@core/services/cart.service';
 import Modal from '@shared/modal/modal';
+import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
 
 @Component({
   selector: 'shared-card',
-  imports: [CommonModule, RouterModule, NgOptimizedImage, Modal],
+  imports: [CommonModule, RouterModule, NgOptimizedImage, Modal, StorageUrlPipe],
   templateUrl: './card.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './card.css',

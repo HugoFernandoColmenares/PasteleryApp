@@ -8,7 +8,8 @@
     "prebuild": "node scripts/generate-env.mjs",
     "build": "ng build",
     "watch": "npm run prebuild && ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "upload:images": "node scripts/upload-public-images.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -49,6 +50,7 @@
     "karma-coverage": "^2.2.1",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.2.0",
+    "sharp": "^0.35.3",
     "typescript": "~6.0.3"
   }
 }

@@ -2,7 +2,7 @@
   <div class="card-image-wrapper">
     @if (recipe().imageUrl) {
       <img 
-        [ngSrc]="recipe().imageUrl!" 
+        [ngSrc]="recipe().imageUrl! | storageUrl" 
         [alt]="'Imagen de ' + recipe().name" 
         fill 
         priority="true"

@@ -5,12 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '@core/services/recipe.service';
 import { IngredientService } from '@core/services/ingredient.service';
 import { AlertService } from '@core/services/alert.service';
+import { ImageUploadService } from '@core/services/image-upload.service';
 import { RecipeDto, CreateRecipeDto, RecipeIngredientDto } from '@core/models/recipe.model';
+import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, StorageUrlPipe],
   templateUrl: './recipe-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-form.css',
@@ -20,12 +22,14 @@ export class RecipeForm implements OnInit {
   private recipeService = inject(RecipeService);
   private ingredientService = inject(IngredientService);
   private alertService = inject(AlertService);
+  private imageUploadService = inject(ImageUploadService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
   public ingredients = this.ingredientService.ingredients;
   public isEditMode = signal(false);
   public recipeId = signal<string | null>(null);
+  public uploadingImage = signal(false);
 
   public recipeForm = this.fb.group({
     name: ['', Validators.required],
@@ -86,16 +90,28 @@ export class RecipeForm implements OnInit {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (loadEvent: ProgressEvent<FileReader>) => {
-        const result = loadEvent.target?.result;
-        if (typeof result === 'string') {
-          this.recipeForm.patchValue({ imageUrl: result });
-        }
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) {
+      return;
     }
+
+    this.uploadingImage.set(true);
+
+    this.imageUploadService
+      .uploadOptimized(file, {
+        folder: 'recipes',
+        fileName: file.name.replace(/\.[^.]+$/, ''),
+      })
+      .subscribe({
+        next: (storagePath) => {
+          this.recipeForm.patchValue({ imageUrl: storagePath });
+          this.uploadingImage.set(false);
+        },
+        error: (error: Error) => {
+          this.uploadingImage.set(false);
+          this.alertService.error('Error de imagen', error.message);
+        },
+      });
   }
 
   saveRecipe() {

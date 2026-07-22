@@ -89,6 +89,8 @@ The application uses **Supabase** for authentication, PostgreSQL data storage, a
 - **Supabase URL:** Configured through the `SUPABASE_URL` environment variable.
 - **Supabase publishable key:** Configured through the `SUPABASE_KEY` environment variable.
 - **Database schema:** Defined in `supabase/migrations/`.
+- **Seed data:** `supabase/migrations/20260722150000_seed_app_data.sql` (ingredients, recipes, news, inventory).
+- **Image storage:** Supabase bucket `assets` with WebP optimization via `ImageUploadService` and `scripts/upload-public-images.mjs`.
 - **Security:** Only the publishable key belongs in the frontend. Never commit service role keys.
 
 Legacy .NET API endpoint specifications may still be documented in `API_INSTRUCTIONS.md` (local reference, git-ignored).
@@ -117,6 +119,19 @@ npm start
 ```
 
 Open `http://localhost:4200`.
+
+### Database seed and images
+
+Apply Supabase migrations (schema, storage bucket, seed data) through the Supabase CLI or dashboard SQL editor.
+
+To upload and optimize images from `public/` to Supabase Storage:
+
+```bash
+# Add SUPABASE_SERVICE_ROLE_KEY to .env (admin scripts only)
+npm run upload:images
+```
+
+This converts PNG/JPEG assets to WebP, resizes them, and uploads them to the `assets` bucket. Recipe and news seed rows reference storage paths such as `recipes/bread-01.webp`.
 
 ### Build
 
