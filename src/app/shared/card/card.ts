@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListRecipeDto } from '@core/interfaces/recipe.interface';
 import { CartService } from '@core/services/cart.service';
@@ -9,6 +9,7 @@ import Modal from '@shared/modal/modal';
   selector: 'shared-card',
   imports: [CommonModule, RouterModule, NgOptimizedImage, Modal],
   templateUrl: './card.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './card.css',
 })
 export class Card {

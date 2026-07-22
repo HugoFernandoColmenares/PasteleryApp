@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { Footer } from '@shared/footer/footer';
@@ -10,6 +10,7 @@ import { Sidebar } from '@shared/sidebar/sidebar';
   selector: 'app-layout',
   imports: [CommonModule, RouterOutlet, Header, Sidebar, Footer],
   templateUrl: './layout.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './layout.css',
 })
 export class Layout {

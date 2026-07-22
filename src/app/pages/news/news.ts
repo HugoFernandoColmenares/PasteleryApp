@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NewsService } from '@core/services/news.service';
@@ -7,6 +7,7 @@ import { NewsService } from '@core/services/news.service';
   selector: 'app-news',
   imports: [CommonModule, RouterLink],
   templateUrl: './news.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './news.css',
 })
 export class News implements OnInit {

@@ -1,10 +1,11 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListRecipeDto } from '@core/interfaces/recipe.interface';
 
 @Component({
     selector: 'shared-modal',
     templateUrl: './modal.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './modal.css',
 })
 export default class Modal {

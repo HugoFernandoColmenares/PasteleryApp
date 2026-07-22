@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SIDEBAR_ITEMS } from '@core/data/app-data';
 
@@ -6,6 +6,7 @@ import { SIDEBAR_ITEMS } from '@core/data/app-data';
   selector: 'app-sidebar',
   imports: [RouterLink],
   templateUrl: './sidebar.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './sidebar.css',
 })
 export class Sidebar {

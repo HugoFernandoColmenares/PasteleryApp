@@ -1,11 +1,12 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CartService } from '@core/services/cart.service';
 
 @Component({
   selector: 'app-cart',
   imports: [CommonModule, CurrencyPipe],
   templateUrl: './cart.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './cart.css',
 })
 export class Cart {

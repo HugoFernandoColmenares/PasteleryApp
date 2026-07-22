@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '@core/services/recipe.service';
@@ -12,6 +12,7 @@ import { RecipeDto, CreateRecipeDto } from '@core/interfaces/recipe.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './recipe-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-form.css',
 })
 export class RecipeForm implements OnInit {

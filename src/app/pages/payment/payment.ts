@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 
@@ -7,6 +7,7 @@ import { AlertService } from '@core/services/alert.service';
   selector: 'app-payment',
   imports: [CommonModule],
   templateUrl: './payment.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './payment.css',
 })
 export class Payment {

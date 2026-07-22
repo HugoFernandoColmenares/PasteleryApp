@@ -30,7 +30,7 @@
             <span class="icon">📷</span> {{ recipeForm.get('imageUrl')?.value ? 'Cambiar Imagen' : 'Subir Imagen' }}
           </button>
           <div class="image-preview" *ngIf="recipeForm.get('imageUrl')?.value">
-            <img [src]="recipeForm.get('imageUrl')?.value" alt="Preview">
+            <img [src]="$safeNavigationMigration(recipeForm.get('imageUrl')?.value)" alt="Preview">
           </div>
         </div>
       </div>

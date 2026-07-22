@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -9,6 +9,7 @@ import { AlertService } from '@core/services/alert.service';
   selector: 'app-auth',
   imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './auth.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './auth.css',
 })
 export class Auth {

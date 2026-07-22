@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NewsService } from '@core/services/news.service';
@@ -9,6 +9,7 @@ import { map, switchMap } from 'rxjs';
   selector: 'app-article',
   imports: [CommonModule, RouterLink],
   templateUrl: './article.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './article.css',
 })
 export class Article {

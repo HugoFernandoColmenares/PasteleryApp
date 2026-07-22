@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IngredientDto } from '@core/interfaces/inventory-item.interface';
 import { IngredientService } from '@core/services/ingredient.service';
@@ -9,6 +9,7 @@ import { AlertService } from '@core/services/alert.service';
   selector: 'app-ingredient',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './ingredient.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ingredient.css',
 })
 export class Ingredient implements OnInit {

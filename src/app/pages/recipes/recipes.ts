@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { RecipeService } from '@core/services/recipe.service';
 import { AlertService } from '@core/services/alert.service';
@@ -8,6 +8,7 @@ import { AlertService } from '@core/services/alert.service';
   selector: 'app-recipes',
   imports: [CommonModule, RouterModule],
   templateUrl: './recipes.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipes.css',
 })
 export class Recipes implements OnInit {

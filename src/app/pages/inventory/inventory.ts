@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { Component, inject, OnInit, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InventoryItemDto, IngredientDto } from '@core/interfaces/inventory-item.interface';
 import { InventoryService } from '@core/services/inventory.service';
@@ -10,6 +10,7 @@ import { AlertService } from '@core/services/alert.service';
   selector: 'app-inventory',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './inventory.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './inventory.css',
 })
 export class Inventory implements OnInit {

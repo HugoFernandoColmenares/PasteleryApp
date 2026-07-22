@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RecipeService } from '@core/services/recipe.service';
 import { Card } from "@shared/card/card";
 import { CommonModule } from '@angular/common';
@@ -10,6 +10,7 @@ import { map, switchMap } from 'rxjs';
   selector: 'app-home',
   imports: [CommonModule, Card],
   templateUrl: './home.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home.css',
 })
 export class Home {

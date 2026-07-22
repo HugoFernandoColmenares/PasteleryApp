@@ -44,3 +44,10 @@ __screenshots__/
 Thumbs.db
 API_INSTRUCTIONS.md
 unit-tests.md
+
+# Environment
+.env
+
+# Project guidelines (local only)
+design_guidelines.md
+architecture_guidelines.md

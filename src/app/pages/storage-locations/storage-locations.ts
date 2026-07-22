@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StorageLocationService } from '@core/services/storage-location.service';
 import { AlertService } from '@core/services/alert.service';
@@ -10,6 +10,7 @@ import { StorageLocationDto, CreateStorageLocationDto } from '@core/interfaces/s
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './storage-locations.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './storage-locations.css',
 })
 export class StorageLocations implements OnInit {
