@@ -26,11 +26,15 @@
           routerLinkActive="active" 
           [routerLinkActiveOptions]="{ exact: true }"
         >Inicio</a>
-        <a 
-          routerLink="/home/recipes" 
-          routerLinkActive="active"
-        >Recetas</a>
         @if (currentUser()) {
+          <a 
+            routerLink="/home/orders" 
+            routerLinkActive="active"
+          >Mis Pedidos</a>
+          <a 
+            routerLink="/home/recipes" 
+            routerLinkActive="active"
+          >Recetas</a>
           <a 
             routerLink="/home/inventory" 
             routerLinkActive="active"

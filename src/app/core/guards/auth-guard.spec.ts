@@ -33,6 +33,8 @@ describe('authGuard', () => {
     authServiceSpy.isAuthenticated.set(false);
     const result = TestBed.runInInjectionContext(() => authGuard({} as any, {} as any));
     expect(result).toBeFalse();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/home/login']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/home/login'], {
+      queryParams: { returnUrl: undefined },
+    });
   });
 });

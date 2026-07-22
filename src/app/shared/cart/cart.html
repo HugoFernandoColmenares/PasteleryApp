@@ -25,7 +25,7 @@
   <div class="cart-summary">
     <h3>Total: {{ totalPrice() | currency:'USD' }}</h3>
     <button class="secondary-button" (click)="clearCart()">Vaciar Carrito</button>
-    <button class="primary-button" routerLink="/payment">Proceder al Pago</button>
+    <button class="primary-button" type="button" (click)="proceedToPayment()">Proceder al Pago</button>
   </div>
   }
 </div>

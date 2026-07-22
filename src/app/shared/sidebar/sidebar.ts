@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SIDEBAR_ITEMS } from '@core/constants/sidebar.constants';
+import { getSidebarItems } from '@core/constants/sidebar.constants';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,5 +11,7 @@ import { SIDEBAR_ITEMS } from '@core/constants/sidebar.constants';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  public menuItems = SIDEBAR_ITEMS;
+  private authService = inject(AuthService);
+
+  menuItems = computed(() => getSidebarItems(this.authService.isAuthenticated()));
 }

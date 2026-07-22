@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { AlertService } from '@core/services/alert.service';
 import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
@@ -21,6 +21,7 @@ export class Auth {
   private authService = inject(AuthService);
   private alertService = inject(AlertService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   readonly authImages = {
     left: 'auth/login_1.webp',
@@ -73,12 +74,23 @@ export class Auth {
     return this.passwordVisible()[field];
   }
 
+  private navigateAfterAuth(fallback = '/home/main') {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+    if (returnUrl?.startsWith('/home')) {
+      void this.router.navigateByUrl(returnUrl);
+      return;
+    }
+
+    void this.router.navigate([fallback]);
+  }
+
   login() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.getRawValue()).subscribe((response) => {
         if (response.isSuccess) {
           this.alertService.toast('Welcome back');
-          this.router.navigate(['/home/profile']);
+          this.navigateAfterAuth('/home/main');
         } else {
           this.alertService.error('Access error', response.message || 'Invalid credentials');
         }

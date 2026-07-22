@@ -25,6 +25,7 @@ export const routes: Routes = [
       {
         path: 'recipes',
         loadComponent: () => import('./pages/recipes/recipes').then((m) => m.Recipes),
+        canActivate: [authGuard],
       },
       {
         path: 'news',
@@ -88,6 +89,11 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
     ],
+  },
+  {
+    path: 'payment',
+    redirectTo: 'home/payment',
+    pathMatch: 'full',
   },
   {
     path: '**',
