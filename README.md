@@ -58,16 +58,17 @@ Refer to `architecture_guidelines.md` for the complete structure, routing rules,
 |------------|-----------------|
 | Angular | 22.0.7 |
 | TypeScript | 6.0.3 |
+| Supabase | Auth, Database, RLS |
 | RxJS | 7.8.x |
 | SweetAlert2 | Custom alerts via `AlertService` |
 | Karma / Jasmine | Unit testing |
-| .NET 8 API | Backend REST integration |
 
 ---
 
 ## Current Features
 
 - REST API integration with standardized `ApiResponse<T>` responses.
+- Supabase backend: Auth, PostgreSQL tables, and RLS policies.
 - Environment configuration via `.env` (local) and Vercel environment variables (production).
 - JWT-based authentication: login, registration, forgot password, reset password.
 - Public news section with article detail views.
@@ -83,11 +84,14 @@ Refer to `architecture_guidelines.md` for the complete structure, routing rules,
 
 ## Backend Integration
 
-The application connects to a .NET 8 REST API. Endpoint specifications and data formats are documented in `API_INSTRUCTIONS.md` (local reference, git-ignored).
+The application uses **Supabase** for authentication, PostgreSQL data storage, and Row Level Security (RLS).
 
-- **Base URL:** Configured through the `API_URL` environment variable.
-- **Default (local):** `https://localhost:7229/api`
-- **Response format:** `ApiResponse<T>` with `data`, `message`, `isSuccess`, and optional `pagination`.
+- **Supabase URL:** Configured through the `SUPABASE_URL` environment variable.
+- **Supabase publishable key:** Configured through the `SUPABASE_KEY` environment variable.
+- **Database schema:** Defined in `supabase/migrations/`.
+- **Security:** Only the publishable key belongs in the frontend. Never commit service role keys.
+
+Legacy .NET API endpoint specifications may still be documented in `API_INSTRUCTIONS.md` (local reference, git-ignored).
 
 ---
 
@@ -125,7 +129,7 @@ Output is generated in `dist/PasteleryApp/browser`.
 ### Vercel Deployment
 
 1. Connect the repository to Vercel.
-2. Set the `API_URL` environment variable for production.
+2. Set `SUPABASE_URL` and `SUPABASE_KEY` environment variables for production.
 3. Deploy. The build runs `prebuild` to generate environment files automatically.
 
 ---

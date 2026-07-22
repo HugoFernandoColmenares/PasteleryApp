@@ -1,17 +1,20 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { ApiResponse } from '@core/models/api-response.model';
 import { InventoryItemDto } from '@core/models/inventory-item.model';
+import {
+  InventoryItemRow,
+  mapInventoryInsertPayload,
+  mapInventoryItemRow,
+  mapInventoryUpdatePayload,
+} from '@core/models/supabase-row.model';
+import { SupabaseService } from '@core/services/supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InventoryService {
-  private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/InventoryItem`;
+  private supabase = inject(SupabaseService).client;
 
   private readonly _ingredients = signal<InventoryItemDto[]>([]);
   private readonly _loading = signal<boolean>(false);
@@ -26,32 +29,58 @@ export class InventoryService {
   loadIngredients() {
     this._loading.set(true);
 
-    this.http.get<ApiResponse<InventoryItemDto[]>>(this.apiUrl)
-      .pipe(
-        finalize(() => this._loading.set(false))
-      ).subscribe({
-        next: (response) => {
-          this._ingredients.set(response.data || []);
+    from(
+      this.supabase
+        .from('inventory_items')
+        .select('*, ingredients(*)')
+        .order('last_updated', { ascending: false }),
+    )
+      .pipe(finalize(() => this._loading.set(false)))
+      .subscribe({
+        next: ({ data, error }) => {
+          if (error) {
+            console.error('Error fetching inventory', error);
+            this._ingredients.set([]);
+            return;
+          }
+
+          this._ingredients.set((data as InventoryItemRow[]).map(mapInventoryItemRow));
         },
         error: (err) => {
           console.error('Error fetching inventory', err);
           this._ingredients.set([]);
-        }
+        },
       });
   }
 
   addIngredient(item: Partial<InventoryItemDto>): Observable<InventoryItemDto | null> {
-    return this.http.post<ApiResponse<InventoryItemDto>>(this.apiUrl, item)
-      .pipe(map(response => response.data));
+    return from(
+      this.supabase
+        .from('inventory_items')
+        .insert(mapInventoryInsertPayload(item))
+        .select('*, ingredients(*)')
+        .single(),
+    ).pipe(
+      map(({ data, error }) => (error || !data ? null : mapInventoryItemRow(data as InventoryItemRow))),
+    );
   }
 
   updateIngredient(updated: InventoryItemDto): Observable<InventoryItemDto | null> {
-    return this.http.put<ApiResponse<InventoryItemDto>>(`${this.apiUrl}/${updated.id}`, updated)
-      .pipe(map(response => response.data));
+    return from(
+      this.supabase
+        .from('inventory_items')
+        .update(mapInventoryUpdatePayload(updated))
+        .eq('id', updated.id)
+        .select('*, ingredients(*)')
+        .single(),
+    ).pipe(
+      map(({ data, error }) => (error || !data ? null : mapInventoryItemRow(data as InventoryItemRow))),
+    );
   }
 
   deleteIngredient(id: string): Observable<boolean> {
-    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`)
-      .pipe(map(response => response.isSuccess));
+    return from(this.supabase.from('inventory_items').delete().eq('id', id)).pipe(
+      map(({ error }) => !error),
+    );
   }
 }

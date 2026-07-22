@@ -47,6 +47,8 @@ unit-tests.md
 
 # Environment
 .env
+src/environments/environment.ts
+src/environments/environment.development.ts
 
 # Project guidelines (local only)
 design_guidelines.md

@@ -1,16 +1,20 @@
-import { Injectable, signal, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { ApiResponse } from '@core/models/api-response.model';
+import { Injectable, inject, signal } from '@angular/core';
+import { from, map, tap } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { IngredientDto } from '@core/models/inventory-item.model';
-import { finalize, map, tap } from 'rxjs';
+import {
+  IngredientRow,
+  mapIngredientInsertPayload,
+  mapIngredientRow,
+  mapIngredientUpdatePayload,
+} from '@core/models/supabase-row.model';
+import { SupabaseService } from '@core/services/supabase.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IngredientService {
-  private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/Ingredient`;
+  private supabase = inject(SupabaseService).client;
 
   private ingredientsSignal = signal<IngredientDto[]>([]);
   private loadingSignal = signal<boolean>(false);
@@ -18,34 +22,50 @@ export class IngredientService {
   public ingredients = this.ingredientsSignal.asReadonly();
   public loading = this.loadingSignal.asReadonly();
 
-  constructor() { }
-
   loadIngredients() {
     this.loadingSignal.set(true);
-    return this.http.get<ApiResponse<IngredientDto[]>>(this.apiUrl).pipe(
+
+    return from(this.supabase.from('ingredients').select('*').order('name')).pipe(
       finalize(() => this.loadingSignal.set(false)),
-      tap(response => {
-        this.ingredientsSignal.set(response.data || []);
+      tap(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching ingredients', error);
+          this.ingredientsSignal.set([]);
+          return;
+        }
+
+        this.ingredientsSignal.set((data as IngredientRow[]).map(mapIngredientRow));
       }),
-      map(response => response.data || [])
+      map(({ data, error }) => {
+        if (error) {
+          return [];
+        }
+
+        return (data as IngredientRow[]).map(mapIngredientRow);
+      }),
     );
   }
 
   addIngredient(ingredient: Partial<IngredientDto>) {
-    return this.http.post<ApiResponse<IngredientDto>>(this.apiUrl, ingredient).pipe(
-      map(response => response.data)
-    );
+    return from(
+      this.supabase.from('ingredients').insert(mapIngredientInsertPayload(ingredient)).select('*').single(),
+    ).pipe(map(({ data, error }) => (error || !data ? null : mapIngredientRow(data as IngredientRow))));
   }
 
   updateIngredient(ingredient: IngredientDto) {
-    return this.http.put<ApiResponse<IngredientDto>>(`${this.apiUrl}/${ingredient.id}`, ingredient).pipe(
-      map(response => response.data)
-    );
+    return from(
+      this.supabase
+        .from('ingredients')
+        .update(mapIngredientUpdatePayload(ingredient))
+        .eq('id', ingredient.id)
+        .select('*')
+        .single(),
+    ).pipe(map(({ data, error }) => (error || !data ? null : mapIngredientRow(data as IngredientRow))));
   }
 
   deleteIngredient(id: string) {
-    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`).pipe(
-      map(response => response.isSuccess)
+    return from(this.supabase.from('ingredients').delete().eq('id', id)).pipe(
+      map(({ error }) => !error),
     );
   }
 }

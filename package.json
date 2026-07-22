@@ -31,6 +31,7 @@
     "@angular/forms": "^22.0.7",
     "@angular/platform-browser": "^22.0.7",
     "@angular/router": "^22.0.7",
+    "@supabase/supabase-js": "^2.110.8",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.26.18",
     "tslib": "^2.3.0"

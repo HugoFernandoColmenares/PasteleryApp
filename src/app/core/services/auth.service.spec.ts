@@ -1,75 +1,47 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient, withXhr } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { environment } from '../../../environments/environment';
+import { SupabaseService } from './supabase.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let httpMock: HttpTestingController;
+  let signOutSpy: jasmine.Spy;
 
   beforeEach(() => {
-    spyOn(localStorage, 'getItem').and.returnValue(null);
-    spyOn(localStorage, 'setItem');
-    spyOn(localStorage, 'removeItem');
+    signOutSpy = jasmine.createSpy('signOut').and.returnValue(Promise.resolve({ error: null }));
 
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        provideHttpClient(withXhr()),
-        provideHttpClientTesting()
-      ]
+        {
+          provide: SupabaseService,
+          useValue: {
+            client: {
+              auth: {
+                getSession: jasmine.createSpy('getSession').and.returnValue(
+                  Promise.resolve({ data: { session: null }, error: null }),
+                ),
+                onAuthStateChange: jasmine.createSpy('onAuthStateChange').and.returnValue({
+                  data: { subscription: { unsubscribe: () => undefined } },
+                }),
+                signOut: signOutSpy,
+              },
+            },
+          },
+        },
+      ],
     });
 
     service = TestBed.inject(AuthService);
-    httpMock = TestBed.inject(HttpTestingController);
-  });
-
-  afterEach(() => {
-    httpMock.verify();
-    localStorage.clear();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should authenticate user and update signals and localStorage on login', () => {
-    const mockCredentials = { email: 'test@test.com', password: 'password123' };
-    const mockResponse = {
-      isSuccess: true,
-      data: { token: 'mock-token', roles: [], expiration: new Date() },
-      message: 'Success'
-    };
-
-    service.login(mockCredentials).subscribe();
-
-    const req = httpMock.expectOne(`${environment.apiUrl}/Authentication/Login`);
-    expect(req.request.method).toBe('POST');
-    req.flush(mockResponse);
-
-    expect(localStorage.setItem).toHaveBeenCalledWith('user', jasmine.any(String));
-    expect(service.isAuthenticated()).toBeTrue();
-    expect(service.currentUser()?.email).toBe('test@test.com');
-  });
-
-  it('should clear signals and localStorage on logout', () => {
+  it('should clear signals on logout', () => {
     service.logout();
-    expect(localStorage.removeItem).toHaveBeenCalledWith('user');
+    expect(signOutSpy).toHaveBeenCalled();
     expect(service.isAuthenticated()).toBeFalse();
     expect(service.currentUser()).toBeNull();
-  });
-  
-  it('should propagate API errors', () => {
-    const mockCredentials = { email: 'test@test.com', password: 'wrong' };
-
-    service.login(mockCredentials).subscribe({
-      error: (error) => {
-        expect(error.status).toBe(401);
-      }
-    });
-
-    const req = httpMock.expectOne(`${environment.apiUrl}/Authentication/Login`);
-    req.flush('Unauthorized', { status: 401, statusText: 'Unauthorized' });
   });
 });

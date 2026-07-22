@@ -1,16 +1,15 @@
-import { Injectable, signal, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { ApiResponse } from '@core/models/api-response.model';
+import { Injectable, inject, signal } from '@angular/core';
+import { from, map, tap } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { NewsArticle } from '@core/models/news-article.model';
-import { map, tap, finalize } from 'rxjs';
+import { mapNewsArticleRow, NewsArticleRow } from '@core/models/supabase-row.model';
+import { SupabaseService } from '@core/services/supabase.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NewsService {
-  private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/News`;
+  private supabase = inject(SupabaseService).client;
 
   private newsSignal = signal<NewsArticle[]>([]);
   private loadingSignal = signal<boolean>(false);
@@ -18,24 +17,38 @@ export class NewsService {
   public news = this.newsSignal.asReadonly();
   public loading = this.loadingSignal.asReadonly();
 
-  constructor() { }
-
   getNews() {
     this.loadingSignal.set(true);
-    return this.http.get<ApiResponse<NewsArticle[]>>(this.apiUrl).pipe(
+
+    return from(
+      this.supabase.from('news_articles').select('*').order('created_at', { ascending: false }),
+    ).pipe(
       finalize(() => this.loadingSignal.set(false)),
-      tap(response => {
-        this.newsSignal.set(response.data || []);
+      tap(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching news', error);
+          this.newsSignal.set([]);
+          return;
+        }
+
+        this.newsSignal.set((data as NewsArticleRow[]).map(mapNewsArticleRow));
       }),
-      map(response => response.data || [])
+      map(({ data, error }) => {
+        if (error) {
+          return [];
+        }
+
+        return (data as NewsArticleRow[]).map(mapNewsArticleRow);
+      }),
     );
   }
 
   getArticleById(id: string) {
     this.loadingSignal.set(true);
-    return this.http.get<ApiResponse<NewsArticle>>(`${this.apiUrl}/${id}`).pipe(
+
+    return from(this.supabase.from('news_articles').select('*').eq('id', id).single()).pipe(
       finalize(() => this.loadingSignal.set(false)),
-      map(response => response.data)
+      map(({ data, error }) => (error || !data ? null : mapNewsArticleRow(data as NewsArticleRow))),
     );
   }
 }
