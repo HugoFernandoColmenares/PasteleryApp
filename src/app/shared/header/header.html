@@ -52,10 +52,15 @@
         <a 
           routerLink="/home/cart" 
           class="cart-link" 
-          aria-label="Ver carrito de compras"
+          [attr.aria-label]="'Ver carrito de compras' + (cartItemCount() > 0 ? ', ' + cartItemCount() + ' productos' : '')"
           routerLinkActive="active"
         >
-          <span class="cart-icon" aria-hidden="true">🛒</span>
+          <span class="cart-link__icon-wrap">
+            <span class="cart-icon" aria-hidden="true">🛒</span>
+            @if (cartItemCount() > 0) {
+              <span class="cart-badge" aria-hidden="true">{{ cartItemCount() }}</span>
+            }
+          </span>
           <span class="cart-text hide-mobile">Carrito</span>
         </a>
 
