@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SIDEBAR_ITEMS } from '@core/data/app-data';
+import { SIDEBAR_ITEMS } from '@core/constants/sidebar.constants';
 
 @Component({
   selector: 'app-sidebar',

@@ -124,14 +124,14 @@ Open `http://localhost:4200`.
 
 Apply Supabase migrations (schema, storage bucket, seed data) through the Supabase CLI or dashboard SQL editor.
 
-To upload and optimize images from `public/` to Supabase Storage:
+To upload and optimize legacy assets to Supabase Storage (one-time admin task):
 
 ```bash
-# Add SUPABASE_SERVICE_ROLE_KEY to .env (admin scripts only)
+# Place PNG/JPEG files in public/, add SUPABASE_SERVICE_ROLE_KEY to .env temporarily
 npm run upload:images
 ```
 
-This converts PNG/JPEG assets to WebP, resizes them, and uploads them to the `assets` bucket. Recipe and news seed rows reference storage paths such as `recipes/bread-01.webp`.
+This converts assets to WebP, resizes them, and uploads them to the `assets` bucket. Recipe and news seed rows reference storage paths such as `recipes/bread-01.webp`. Day-to-day uploads use the in-app `ImageUploadService`.
 
 ### Build
 
