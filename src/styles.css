@@ -82,6 +82,13 @@ button {
   font-family: var(--font-ui);
 }
 
+::selection {
+  background-color: var(--terracotta);
+  color: var(--cream-bright);
+}
+
+/* ── Layout containers ── */
+
 .page-container {
   display: flex;
   flex-direction: column;
@@ -102,6 +109,8 @@ button {
   font-style: italic;
   color: var(--ink-mute);
 }
+
+/* ── Buttons ── */
 
 .primary-button,
 .secondary-button {
@@ -149,6 +158,25 @@ button {
   color: var(--ink);
   border-color: var(--ink);
 }
+
+.delete-button {
+  padding: 0.8rem 1.4rem;
+  border: 0.1rem solid var(--error-color);
+  border-radius: 999rem;
+  background: transparent;
+  color: var(--error-color);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease-quiet),
+    color 0.3s var(--ease-quiet);
+}
+
+.delete-button:hover {
+  background-color: var(--error-color);
+  color: var(--cream-bright);
+}
+
+/* ── Forms (shared) ── */
 
 .form-group {
   display: flex;
@@ -204,7 +232,8 @@ button {
   outline: none;
 }
 
-.form-field input::placeholder {
+.form-field input::placeholder,
+.form-field textarea::placeholder {
   color: var(--ink-mute);
 }
 
@@ -228,11 +257,25 @@ button {
   gap: 1.6rem;
 }
 
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ── Card grid ── */
+
 .card-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
 }
+
+/* ── Data tables ── */
 
 .data-table {
   width: 100%;
@@ -258,6 +301,131 @@ button {
   background-color: var(--cream-soft);
 }
 
+/* ── Shared modal overlay (DRY extraction) ── */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(44, 38, 32, 0.5);
+  z-index: 2000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: min(90%, 60rem);
+  padding: 2.4rem;
+  background: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-family: var(--font-display);
+}
+
+.modal-footer,
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.close-button {
+  border: 0;
+  background: transparent;
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: var(--ink-mute);
+  transition: color 0.3s var(--ease-quiet);
+}
+
+.close-button:hover {
+  color: var(--terracotta);
+}
+
+/* ── Feature tables (DRY extraction) ── */
+
+.table-card {
+  background: var(--cream-bright);
+  border: 0.1rem solid var(--line);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.neobrutalist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.neobrutalist-table th {
+  padding: 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: var(--cream-soft);
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.neobrutalist-table td {
+  padding: 1.2rem;
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.neobrutalist-table tr:hover {
+  background: var(--cream-soft);
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0.4rem;
+  transition: color 0.3s var(--ease-quiet);
+}
+
+.icon-btn:hover {
+  color: var(--terracotta);
+}
+
+/* ── Shared states ── */
+
+.loading-state,
+.empty-msg,
+.error-state {
+  padding: 4rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--ink-mute);
+}
+
+.subtitle {
+  color: var(--ink-mute);
+  font-style: italic;
+}
+
+.error-msg {
+  color: var(--error-color);
+  font-size: 1.2rem;
+}
+
+/* ── Visibility helpers ── */
+
 .hide-mobile {
   display: none !important;
 }
@@ -266,14 +434,18 @@ button {
   text-align: center;
 }
 
+/* ── Grain texture (background only — excludes images) ── */
+
 .grain {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: 1;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.45;
   mix-blend-mode: multiply;
 }
+
+/* ── Scrollbar ── */
 
 ::-webkit-scrollbar {
   width: 0.8rem;
@@ -292,6 +464,8 @@ button {
   scrollbar-width: thin;
   scrollbar-color: var(--sand-deep) var(--cream-soft);
 }
+
+/* ── SweetAlert2 theme ── */
 
 .swal2-popup {
   border: 0.1rem solid var(--line) !important;
@@ -336,8 +510,14 @@ button {
   background-color: var(--cream-soft) !important;
 }
 
+/* ── Responsive ── */
+
 @media (min-width: 641px) {
   .form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -351,6 +531,11 @@ button {
 
   .hide-desktop {
     display: none !important;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    justify-content: center;
   }
 }
 

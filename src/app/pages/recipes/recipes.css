@@ -10,19 +10,6 @@
   gap: 1rem;
 }
 
-@media (min-width: 641px) {
-  .recipes-header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-.subtitle {
-  color: var(--ink-mute);
-  font-style: italic;
-}
-
 .recipes-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -36,6 +23,7 @@
   padding: 2rem;
   background: var(--cream-bright);
   border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
   transition: background-color 0.3s var(--ease-quiet);
 }
 
@@ -55,24 +43,13 @@
   gap: 0.8rem;
 }
 
-.delete-button {
-  padding: 0.8rem 1.4rem;
-  border: 0.1rem solid var(--error-color);
-  border-radius: 999rem;
-  background: transparent;
-  color: var(--error-color);
-  cursor: pointer;
-  transition:
-    background-color 0.3s var(--ease-quiet),
-    color 0.3s var(--ease-quiet);
-}
-
-.delete-button:hover {
-  background-color: var(--error-color);
-  color: var(--cream-bright);
-}
-
 @media (min-width: 641px) {
+  .recipes-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .recipes-grid {
     grid-template-columns: repeat(2, 1fr);
   }

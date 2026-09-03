@@ -14,12 +14,6 @@
   text-align: center;
 }
 
-.subtitle {
-  font-size: 1.6rem;
-  font-style: italic;
-  color: var(--ink-mute);
-}
-
 .news-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -33,6 +27,7 @@
   padding: 2rem;
   background-color: var(--cream-bright);
   border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
   transition: background-color 0.3s var(--ease-quiet);
 }
 
@@ -49,6 +44,7 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-radius: 0.6rem;
 }
 
 .news-date {
@@ -77,13 +73,6 @@
 
 .read-more:hover {
   color: var(--terracotta-deep);
-}
-
-.loading-state {
-  padding: 3rem;
-  text-align: center;
-  font-style: italic;
-  color: var(--ink-mute);
 }
 
 @media (min-width: 641px) {

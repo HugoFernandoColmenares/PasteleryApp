@@ -63,82 +63,17 @@
   gap: 0.8rem;
 }
 
-.btn-edit,
-.btn-delete {
+.btn-edit {
   padding: 0.8rem 1.2rem;
   border: 0.1rem solid var(--line);
   border-radius: 999rem;
   background: transparent;
   cursor: pointer;
-  transition:
-    background-color 0.3s var(--ease-quiet),
-    color 0.3s var(--ease-quiet);
+  transition: background-color 0.3s var(--ease-quiet);
 }
 
 .btn-edit:hover {
   background-color: var(--cream-soft);
-}
-
-.btn-delete {
-  color: var(--error-color);
-  border-color: var(--error-color);
-}
-
-.btn-delete:hover {
-  background-color: var(--error-color);
-  color: var(--cream-bright);
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(44, 38, 32, 0.5);
-  z-index: 1000;
-}
-
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  width: min(90%, 50rem);
-  padding: 2rem;
-  background: var(--cream-bright);
-  border: 0.1rem solid var(--line);
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.btn-primary {
-  padding: 1rem 1.6rem;
-  border: 0.1rem solid var(--ink);
-  border-radius: 999rem;
-  background: var(--ink);
-  color: var(--cream-bright);
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: var(--terracotta);
-  border-color: var(--terracotta);
-}
-
-.btn-secondary {
-  padding: 1rem 1.6rem;
-  border: 0.1rem solid var(--ink);
-  border-radius: 999rem;
-  background: transparent;
-  cursor: pointer;
-}
-
-.btn-secondary:hover {
-  background: var(--cream-soft);
 }
 
 @media (min-width: 641px) {

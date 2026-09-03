@@ -1,13 +1,22 @@
 <aside class="sidebar">
-  <nav class="sidebar-nav">
-    <ul>
+  <div class="sidebar__brand">
+    <span class="sidebar__logo">PastelApp</span>
+  </div>
+
+  <nav class="sidebar__nav" aria-label="Menú lateral">
+    <ul class="sidebar__list">
       @for (item of menuItems(); track item.path) {
-      <li>
-        <a [routerLink]="item.path">
-          <span class="icon">{{ item.icon }}</span>
-          <span class="label">{{ item.label }}</span>
-        </a>
-      </li>
+        <li class="sidebar__item">
+          <a
+            class="sidebar__link"
+            [routerLink]="item.path"
+            routerLinkActive="sidebar__link--active"
+            [routerLinkActiveOptions]="{ exact: item.path === '/home/main' }"
+          >
+            <span class="sidebar__icon" aria-hidden="true">{{ item.icon }}</span>
+            <span class="sidebar__label">{{ item.label }}</span>
+          </a>
+        </li>
       }
     </ul>
   </nav>

@@ -3,14 +3,14 @@
   top: 0;
   z-index: 1000;
   background-color: var(--cream-bright);
-  padding: 1.2rem 1.6rem;
+  padding: 1rem 1.6rem;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1rem;
   max-width: 140rem;
   margin-inline: auto;
 }
@@ -19,13 +19,13 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1.2rem;
 }
 
 .logo-text {
   font-family: var(--font-display);
   color: var(--ink);
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
 
 .logo a {
@@ -37,24 +37,23 @@
 
 .main-nav {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.4rem;
 }
 
 .main-nav a,
 .cart-link,
 .profile-link {
-  padding: 0.8rem 1.2rem;
+  padding: 0.8rem 1rem;
   text-decoration: none;
   color: var(--ink-soft);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  border-bottom: 0.1rem solid transparent;
+  border-bottom: 0.2rem solid transparent;
   transition:
     color 0.3s var(--ease-quiet),
-    border-color 0.3s var(--ease-quiet),
-    background-color 0.3s var(--ease-quiet);
+    border-color 0.3s var(--ease-quiet);
 }
 
 .main-nav a:hover,
@@ -73,7 +72,7 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .cart-link {
@@ -106,7 +105,7 @@
 }
 
 .auth-btn {
-  padding: 0.8rem 1.6rem;
+  padding: 0.6rem 1.4rem;
   border: 0.1rem solid var(--ink);
   border-radius: 999rem;
   background-color: transparent;
@@ -138,10 +137,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
+  width: 4.4rem;
+  height: 4.4rem;
   border: 0.1rem solid var(--line);
-  border-radius: 999rem;
+  border-radius: 1.2rem;
   background: var(--cream-soft);
   cursor: pointer;
   transition: background-color 0.3s var(--ease-quiet);
@@ -164,6 +163,7 @@
   width: 2rem;
   height: 0.2rem;
   background-color: var(--ink);
+  border-radius: 0.1rem;
 }
 
 .hamburger-inner {
@@ -177,19 +177,26 @@
 }
 
 .hamburger-inner::before {
-  top: -0.6rem;
+  top: -0.5rem;
 }
 
 .hamburger-inner::after {
-  bottom: -0.6rem;
+  bottom: -0.5rem;
 }
 
 @media (min-width: 901px) {
   .main-header {
-    padding: 1.6rem 2rem;
+    padding: 1.4rem 2rem;
   }
 
   .logo-text {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
+  }
+
+  .main-nav a,
+  .cart-link,
+  .profile-link {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.2rem;
   }
 }

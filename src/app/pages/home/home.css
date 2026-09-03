@@ -9,6 +9,8 @@
   padding-bottom: 2.4rem;
 }
 
+/* ── Landing hero ── */
+
 .landing {
   display: flex;
   flex-direction: column;
@@ -24,14 +26,18 @@
 }
 
 .landing__title {
-  font-size: clamp(3.6rem, 8vw, 7.2rem);
+  font-size: clamp(3.2rem, 8vw, 7.2rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
 
+.landing__title-accent {
+  color: var(--terracotta);
+}
+
 .landing__lead {
   max-width: 54rem;
-  font-size: clamp(1.6rem, 2vw, 1.8rem);
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
   color: var(--ink-mute);
 }
 
@@ -41,6 +47,8 @@
   gap: 1.2rem;
   padding-top: 0.8rem;
 }
+
+/* ── Stage: photo + stats ── */
 
 .landing__stage {
   display: grid;
@@ -53,15 +61,17 @@
   display: block;
   overflow: hidden;
   border-radius: 2.4rem;
-  min-height: 28rem;
+  min-height: 24rem;
   background-color: var(--sand);
+  position: relative;
+  z-index: 3;
 }
 
 .landing__photo img {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 28rem;
+  min-height: 24rem;
   object-fit: cover;
   filter: saturate(0.85) contrast(0.95);
 }
@@ -75,16 +85,16 @@
 .landing__stat {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 2.4rem;
+  gap: 0.6rem;
+  padding: 2rem;
   background-color: var(--cream-bright);
   border: 0.1rem solid var(--line-soft);
-  border-radius: 2.4rem;
+  border-radius: 2rem;
 }
 
 .landing__stat-value {
   font-family: var(--font-display);
-  font-size: clamp(4.2rem, 8vw, 5.6rem);
+  font-size: clamp(3.6rem, 8vw, 5.6rem);
   line-height: 1;
   color: var(--ink);
 }
@@ -92,15 +102,19 @@
 .landing__stat-label {
   font-family: var(--font-ui);
   font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--terracotta);
 }
 
 .landing__stat-detail {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  line-height: 1.5;
   color: var(--ink-mute);
 }
+
+/* ── Catalog section ── */
 
 .home__catalog {
   display: flex;
@@ -120,7 +134,7 @@
 }
 
 .home__catalog-lead {
-  font-size: clamp(1.5rem, 1.8vw, 1.7rem);
+  font-size: clamp(1.4rem, 1.8vw, 1.7rem);
   font-style: italic;
   color: var(--ink-mute);
 }
@@ -138,6 +152,8 @@
   color: var(--ink-mute);
 }
 
+/* ── Tablet ── */
+
 @media (min-width: 641px) {
   .landing__stage {
     grid-template-columns: 1.15fr 0.85fr;
@@ -148,7 +164,13 @@
   .landing__photo img {
     min-height: 42rem;
   }
+
+  .landing__stats {
+    grid-template-columns: 1fr;
+  }
 }
+
+/* ── Desktop ── */
 
 @media (min-width: 901px) {
   .home {
