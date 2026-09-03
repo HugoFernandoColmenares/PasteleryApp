@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 80rem;
-  margin-inline: auto;
+  width: min(100%, 80rem);
+  align-self: center;
   padding: 2rem;
   background: var(--cream-bright);
   border: 0.1rem solid var(--line);

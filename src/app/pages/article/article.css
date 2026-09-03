@@ -1,6 +1,6 @@
 .article-container {
-  max-width: 80rem;
-  margin-inline: auto;
+  width: min(100%, 80rem);
+  align-self: center;
   padding: 2rem;
 }
 

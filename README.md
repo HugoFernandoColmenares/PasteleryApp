@@ -19,8 +19,10 @@ The interface uses a warm, organic design language:
 - Earth-tone palette defined as CSS custom properties (cream, sand, terracotta, sage, ink).
 - Typography pairing: `Fraunces` for display and headings, `Inter` for UI and body text.
 - Mobile-first layout with progressive breakpoints at 641 px and 901 px.
-- Spacing managed through `gap` and `padding`; all sizing in `rem` (1 rem = 10 px).
-- Subtle motion using breathing-style animations with reduced-motion support.
+- All sizing uses `rem` (1 rem = 10 px).
+- Spacing managed through `gap` and `padding` only. Component styles do not use `margin`; centering uses flex/grid alignment and `width: min(100%, …)`.
+- The landing page pairs the introduction and hero image in a horizontal flex row from 641 px upward. Highlight stats sit below as compact horizontal rows.
+- Subtle motion using breathing-style animations and reduced-motion support.
 - BEM-inspired CSS naming and a linen grain overlay for tactile depth (restricted to the background layer so images remain crisp).
 
 Refer to `design_guidelines.md` for tokens, component patterns, form standards, accessibility rules, and the full UI checklist.

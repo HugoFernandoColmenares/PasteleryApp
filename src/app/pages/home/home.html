@@ -1,22 +1,22 @@
 <div class="home">
   <section class="landing" aria-labelledby="landing-title">
-    <div class="landing__intro">
-      <h1 id="landing-title" class="landing__title">
-        El horno se enciende
-        <span class="landing__title-accent">antes de que despierte</span>
-        la ciudad.
-      </h1>
-      <p class="landing__lead">
-        Masa madre, mantequilla y fruta de temporada. Pedidos listos para recoger o llevar a casa,
-        con el mismo sabor que sale de nuestro obrador.
-      </p>
-      <div class="landing__actions">
-        <button class="primary-button" type="button" (click)="scrollToCatalog()">Ver especialidades</button>
-        <a class="secondary-button" routerLink="/home/about">Nuestra historia</a>
+    <div class="landing__hero">
+      <div class="landing__intro">
+        <h1 id="landing-title" class="landing__title">
+          El horno se enciende
+          <span class="landing__title-accent">antes de que despierte</span>
+          la ciudad.
+        </h1>
+        <p class="landing__lead">
+          Masa madre, mantequilla y fruta de temporada. Pedidos listos para recoger o llevar a casa,
+          con el mismo sabor que sale de nuestro obrador.
+        </p>
+        <div class="landing__actions">
+          <button class="primary-button" type="button" (click)="scrollToCatalog()">Ver especialidades</button>
+          <a class="secondary-button" routerLink="/home/about">Nuestra historia</a>
+        </div>
       </div>
-    </div>
 
-    <div class="landing__stage">
       <figure class="landing__photo">
         <img
           [storageSrc]="heroImage"
@@ -25,13 +25,17 @@
           height="720"
         />
       </figure>
+    </div>
 
+    <div class="landing__stage">
       <div class="landing__stats">
         @for (item of highlights(); track item.label) {
           <article class="landing__stat">
             <p class="landing__stat-value">{{ item.value }}</p>
-            <h2 class="landing__stat-label">{{ item.label }}</h2>
-            <p class="landing__stat-detail">{{ item.detail }}</p>
+            <div class="landing__stat-copy">
+              <h2 class="landing__stat-label">{{ item.label }}</h2>
+              <p class="landing__stat-detail">{{ item.detail }}</p>
+            </div>
           </article>
         }
       </div>

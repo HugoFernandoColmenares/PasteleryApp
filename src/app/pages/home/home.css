@@ -1,32 +1,39 @@
 :host {
   display: block;
+  width: 100%;
 }
 
 .home {
   display: flex;
   flex-direction: column;
   gap: 4.8rem;
+  width: 100%;
   padding-bottom: 2.4rem;
 }
-
-/* ── Landing hero ── */
 
 .landing {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
-  max-width: 118rem;
+  gap: 2.4rem;
+  width: min(100%, 118rem);
+  align-self: center;
+}
+
+.landing__hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 }
 
 .landing__intro {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  max-width: 72rem;
+  justify-content: center;
 }
 
 .landing__title {
-  font-size: clamp(3.2rem, 8vw, 7.2rem);
+  font-size: clamp(3rem, 7vw, 6.4rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
@@ -36,8 +43,7 @@
 }
 
 .landing__lead {
-  max-width: 54rem;
-  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  font-size: clamp(1.5rem, 2vw, 1.7rem);
   color: var(--ink-mute);
 }
 
@@ -45,23 +51,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
-  padding-top: 0.8rem;
-}
-
-/* ── Stage: photo + stats ── */
-
-.landing__stage {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.6rem;
-  align-items: stretch;
+  padding-top: 0.4rem;
 }
 
 .landing__photo {
   display: block;
   overflow: hidden;
   border-radius: 2.4rem;
-  min-height: 24rem;
+  min-height: 22rem;
   background-color: var(--sand);
   position: relative;
   z-index: 3;
@@ -71,37 +68,55 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 24rem;
+  min-height: 22rem;
   object-fit: cover;
   filter: saturate(0.85) contrast(0.95);
 }
 
+.landing__stage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .landing__stats {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .landing__stat {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: 2rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.2rem 1.6rem;
   background-color: var(--cream-bright);
   border: 0.1rem solid var(--line-soft);
-  border-radius: 2rem;
+  border-radius: 1.6rem;
 }
 
 .landing__stat-value {
+  flex-shrink: 0;
+  min-width: 7.2rem;
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 8vw, 5.6rem);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
   line-height: 1;
   color: var(--ink);
 }
 
+.landing__stat-copy {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
 .landing__stat-label {
+  display: block;
   font-family: var(--font-ui);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -109,24 +124,24 @@
 }
 
 .landing__stat-detail {
-  font-size: 1.35rem;
-  line-height: 1.5;
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1.45;
   color: var(--ink-mute);
 }
-
-/* ── Catalog section ── */
 
 .home__catalog {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  width: 100%;
+  scroll-margin-top: 1.6rem;
 }
 
 .home__catalog-head {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  max-width: 64rem;
 }
 
 .home__catalog-title {
@@ -152,33 +167,49 @@
   color: var(--ink-mute);
 }
 
-/* ── Tablet ── */
-
 @media (min-width: 641px) {
-  .landing__stage {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 1.6rem;
+  .landing {
+    gap: 3.2rem;
   }
 
-  .landing__photo,
+  .landing__hero {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .landing__intro {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .landing__photo {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 36rem;
+  }
+
   .landing__photo img {
-    min-height: 42rem;
+    min-height: 36rem;
   }
 
-  .landing__stats {
-    grid-template-columns: 1fr;
+  .landing__stat {
+    padding: 1.4rem 2rem;
   }
 }
-
-/* ── Desktop ── */
 
 @media (min-width: 901px) {
   .home {
     gap: 6.4rem;
   }
 
-  .landing {
+  .landing__hero {
     gap: 4.8rem;
+  }
+
+  .landing__photo,
+  .landing__photo img {
+    min-height: 42rem;
   }
 
   .home__grid {

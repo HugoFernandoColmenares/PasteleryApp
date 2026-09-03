@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 96rem;
-  margin-inline: auto;
+  width: min(100%, 96rem);
+  align-self: center;
   padding: 2rem;
 }
 
@@ -55,7 +55,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin: 0;
   padding: 0;
   list-style: none;
 }
