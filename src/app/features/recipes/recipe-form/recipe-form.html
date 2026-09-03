@@ -41,7 +41,7 @@
           </button>
           @if (recipeForm.get('imageUrl')?.value; as imageUrl) {
             <div class="image-preview">
-              <img [src]="imageUrl | storageUrl" alt="Preview" />
+              <img [storageSrc]="imageUrl" alt="Preview" />
             </div>
           }
         </div>

@@ -7,12 +7,12 @@ import { IngredientService } from '@core/services/ingredient.service';
 import { AlertService } from '@core/services/alert.service';
 import { ImageUploadService } from '@core/services/image-upload.service';
 import { RecipeDto, CreateRecipeDto, RecipeIngredientDto } from '@core/models/recipe.model';
-import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
+import { StorageSrcDirective } from '@shared/directives/storage-src.directive';
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, StorageUrlPipe],
+  imports: [CommonModule, ReactiveFormsModule, StorageSrcDirective],
   templateUrl: './recipe-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-form.css',

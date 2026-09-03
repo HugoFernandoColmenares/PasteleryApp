@@ -8,7 +8,7 @@
     <div class="cart-item">
       <div class="item-info">
         @if (item.recipe.imageUrl) {
-          <img [src]="item.recipe.imageUrl | storageUrl" [alt]="item.recipe.name" />
+          <img [storageSrc]="item.recipe.imageUrl" [alt]="item.recipe.name" />
         }
         <div>
           <h3>{{ item.recipe.name }}</h3>

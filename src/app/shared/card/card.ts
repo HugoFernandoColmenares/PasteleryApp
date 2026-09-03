@@ -1,14 +1,14 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListRecipeDto } from '@core/models/recipe.model';
 import { CartService } from '@core/services/cart.service';
+import { StorageSrcDirective } from '@shared/directives/storage-src.directive';
 import Modal from '@shared/modal/modal';
-import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
 
 @Component({
   selector: 'shared-card',
-  imports: [CommonModule, RouterModule, NgOptimizedImage, Modal, StorageUrlPipe],
+  imports: [CommonModule, RouterModule, Modal, StorageSrcDirective],
   templateUrl: './card.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './card.css',

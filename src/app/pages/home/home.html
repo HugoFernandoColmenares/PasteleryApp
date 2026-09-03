@@ -1,11 +1,53 @@
 <div class="home">
-  @if (loading()) {
-    <p class="home__loading">Cargando productos...</p>
-  } @else {
-    <div class="home__grid card-grid">
-      @for (recipe of recipes(); track recipe.id) {
-        <shared-card [recipe]="recipe" />
-      }
+  <section class="landing" aria-labelledby="landing-title">
+    <div class="landing__intro">
+      <h1 id="landing-title" class="landing__title">El horno se enciende antes de que despierte la ciudad.</h1>
+      <p class="landing__lead">
+        Masa madre, mantequilla y fruta de temporada. Pedidos listos para recoger o llevar a casa,
+        con el mismo sabor que sale de nuestro obrador.
+      </p>
+      <div class="landing__actions">
+        <button class="primary-button" type="button" (click)="scrollToCatalog()">Ver especialidades</button>
+        <a class="secondary-button" routerLink="/home/about">Nuestra historia</a>
+      </div>
     </div>
-  }
+
+    <div class="landing__stage">
+      <figure class="landing__photo">
+        <img
+          [storageSrc]="heroImage"
+          alt="Pasteles y panes recién horneados sobre mesa de madera"
+          width="960"
+          height="720"
+        />
+      </figure>
+
+      <div class="landing__stats">
+        @for (item of highlights(); track item.label) {
+          <article class="landing__stat">
+            <p class="landing__stat-value">{{ item.value }}</p>
+            <h2 class="landing__stat-label">{{ item.label }}</h2>
+            <p class="landing__stat-detail">{{ item.detail }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="home__catalog" id="horno" aria-labelledby="catalog-title">
+    <div class="home__catalog-head">
+      <h2 id="catalog-title" class="home__catalog-title">Del horno a tu mesa</h2>
+      <p class="home__catalog-lead">Elige un pan o un pastel y añádelo al carrito cuando quieras llevártelo.</p>
+    </div>
+
+    @if (loading() && recipes().length === 0) {
+      <p class="home__loading">Cargando productos...</p>
+    } @else {
+      <div class="home__grid card-grid">
+        @for (recipe of recipes(); track recipe.id) {
+          <shared-card [recipe]="recipe" />
+        }
+      </div>
+    }
+  </section>
 </div>

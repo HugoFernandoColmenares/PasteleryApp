@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { FALLBACK_RECIPES } from '@core/constants/fallback-catalog.constants';
 import { CreateRecipeDto, ListRecipeDto, RecipeDto } from '@core/models/recipe.model';
 import {
   mapCreateRecipePayload,
@@ -39,15 +40,16 @@ export class RecipeService {
         next: ({ data, error }) => {
           if (error) {
             console.error('Error fetching recipes', error);
-            this._recipes.set([]);
+            this._recipes.set(FALLBACK_RECIPES);
             return;
           }
 
-          this._recipes.set((data as RecipeRow[]).map(mapRecipeListRow));
+          const recipes = (data as RecipeRow[]).map(mapRecipeListRow);
+          this._recipes.set(recipes.length > 0 ? recipes : FALLBACK_RECIPES);
         },
         error: (err) => {
           console.error('Error fetching recipes', err);
-          this._recipes.set([]);
+          this._recipes.set(FALLBACK_RECIPES);
         },
       });
   }

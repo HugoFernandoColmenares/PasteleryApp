@@ -1,17 +1,16 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { AlertService } from '@core/services/alert.service';
-import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
+import { StorageSrcDirective } from '@shared/directives/storage-src.directive';
 
 type AuthMode = 'login' | 'register' | 'forgot-password' | 'reset-password';
 type PasswordField = 'login' | 'register' | 'confirm' | 'reset';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, NgOptimizedImage, StorageUrlPipe],
+  imports: [ReactiveFormsModule, StorageSrcDirective],
   templateUrl: './auth.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './auth.css',

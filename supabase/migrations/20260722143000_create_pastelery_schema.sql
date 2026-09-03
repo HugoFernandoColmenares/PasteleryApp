@@ -59,12 +59,19 @@ create table if not exists public.news_articles (
   created_at timestamptz not null default now()
 );
 
+grant usage on schema public to anon, authenticated;
 grant select on public.recipes, public.news_articles to anon, authenticated;
 grant select, insert, update, delete on public.ingredients to authenticated;
 grant select, insert, update, delete on public.storage_locations to authenticated;
 grant select, insert, update, delete on public.recipe_ingredients to authenticated;
 grant select, insert, update, delete on public.inventory_items to authenticated;
 grant insert, update, delete on public.recipes to authenticated;
+grant insert, update, delete on public.news_articles to authenticated;
+grant select on public.recipe_ingredients to anon;
+
+create index if not exists inventory_items_ingredient_id_idx on public.inventory_items(ingredient_id);
+create index if not exists recipe_ingredients_ingredient_id_idx on public.recipe_ingredients(ingredient_id);
+create index if not exists recipe_ingredients_recipe_id_idx on public.recipe_ingredients(recipe_id);
 
 alter table public.ingredients enable row level security;
 alter table public.storage_locations enable row level security;
@@ -91,11 +98,17 @@ create policy "recipes_authenticated_update" on public.recipes
 create policy "recipes_authenticated_delete" on public.recipes
   for delete to authenticated using (true);
 
-create policy "recipe_ingredients_authenticated_all" on public.recipe_ingredients
-  for all to authenticated using (true) with check (true);
-
 create policy "recipe_ingredients_public_read" on public.recipe_ingredients
   for select to anon, authenticated using (true);
+
+create policy "recipe_ingredients_authenticated_write" on public.recipe_ingredients
+  for insert to authenticated with check (true);
+
+create policy "recipe_ingredients_authenticated_update" on public.recipe_ingredients
+  for update to authenticated using (true) with check (true);
+
+create policy "recipe_ingredients_authenticated_delete" on public.recipe_ingredients
+  for delete to authenticated using (true);
 
 create policy "inventory_items_authenticated_all" on public.inventory_items
   for all to authenticated using (true) with check (true);

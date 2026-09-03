@@ -4,11 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { AlertService } from '@core/services/alert.service';
 import { CartService } from '@core/services/cart.service';
 import { OrderService } from '@core/services/order.service';
-import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
+import { StorageSrcDirective } from '@shared/directives/storage-src.directive';
 
 @Component({
   selector: 'app-payment',
-  imports: [CommonModule, CurrencyPipe, RouterLink, StorageUrlPipe],
+  imports: [CommonModule, CurrencyPipe, RouterLink, StorageSrcDirective],
   templateUrl: './payment.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './payment.css',

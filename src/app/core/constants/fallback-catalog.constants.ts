@@ -1,0 +1,68 @@
+import { ListRecipeDto } from '@core/models/recipe.model';
+
+export const FALLBACK_RECIPES: ListRecipeDto[] = [
+  {
+    id: '550e8400-e29b-41d4-a716-446655440001',
+    name: 'Pan Artesanal de Masa Madre',
+    description: 'Pan artesanal fermentado naturalmente para un sabor y textura inigualables.',
+    suggestedPrice: 8.5,
+    totalCost: 3.5,
+    imageUrl: 'recipes/bread-01.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440002',
+    name: 'Baguette Tradicional',
+    description: 'Crocante por fuera y tierno por dentro, el clásico francés en tu mesa.',
+    suggestedPrice: 4.2,
+    totalCost: 1.8,
+    imageUrl: 'recipes/bread-02.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440003',
+    name: 'Hogaza de Cereales',
+    description: 'Nutritiva mezcla de cereales y semillas en una hogaza rústica.',
+    suggestedPrice: 6.8,
+    totalCost: 2.9,
+    imageUrl: 'recipes/bread-03.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440004',
+    name: 'Delicia de Chocolate',
+    description: 'Intenso bizcocho de chocolate con capas de ganache suave.',
+    suggestedPrice: 15,
+    totalCost: 6.5,
+    imageUrl: 'recipes/dessert_1.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440005',
+    name: 'Tarta de Frutos Rojos',
+    description: 'Base crujiente con crema pastelera y una selección de frutos del bosque.',
+    suggestedPrice: 18.5,
+    totalCost: 8,
+    imageUrl: 'recipes/dessert_2.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440006',
+    name: 'Cheesecake de Vainilla',
+    description: 'Clásico cheesecake al estilo New York con un toque de vainilla natural.',
+    suggestedPrice: 22,
+    totalCost: 10,
+    imageUrl: 'recipes/dessert_3.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440007',
+    name: 'Pastel Especial de Otoño',
+    description: 'Combinación única de especias, calabaza y nueces para la temporada.',
+    suggestedPrice: 35,
+    totalCost: 15,
+    imageUrl: 'recipes/dessert_4.webp',
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440008',
+    name: 'Capricho Cremoso',
+    description: 'Nuestra especialidad de la casa, una explosión de sabores dulces.',
+    suggestedPrice: 12,
+    totalCost: 5,
+    imageUrl: 'recipes/hero.webp',
+  },
+];

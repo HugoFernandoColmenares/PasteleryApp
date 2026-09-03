@@ -40,7 +40,7 @@
             <div class="summary-item">
               <div class="summary-item__info">
                 @if (item.recipe.imageUrl) {
-                  <img [src]="item.recipe.imageUrl | storageUrl" [alt]="item.recipe.name" />
+                  <img [storageSrc]="item.recipe.imageUrl" [alt]="item.recipe.name" />
                 }
                 <div>
                   <strong>{{ item.recipe.name }}</strong>

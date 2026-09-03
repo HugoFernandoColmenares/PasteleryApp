@@ -3,11 +3,11 @@ import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { CartService } from '@core/services/cart.service';
-import { StorageUrlPipe } from '@shared/pipes/storage-url.pipe';
+import { StorageSrcDirective } from '@shared/directives/storage-src.directive';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, CurrencyPipe, StorageUrlPipe],
+  imports: [CommonModule, CurrencyPipe, StorageSrcDirective],
   templateUrl: './cart.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './cart.css',
