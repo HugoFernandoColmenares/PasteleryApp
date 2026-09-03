@@ -139,7 +139,7 @@ Output is generated in `dist/PasteleryApp/browser`.
 
 1. Connect the repository to Vercel.
 2. Set `SUPABASE_URL` and `SUPABASE_KEY` environment variables for production.
-3. Deploy. The build runs `prebuild` to generate environment files automatically.
+3. Deploy. The `prebuild` script creates `src/environments/` (not committed) and writes `environment.ts` from those variables.
 
 ---
 
